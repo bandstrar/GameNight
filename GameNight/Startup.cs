@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using GameNight.DataAccess;
 
 namespace GameNight
 {
@@ -28,22 +29,23 @@ namespace GameNight
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.IncludeErrorDetails = true;
-        options.Authority = "https://securetoken.google.com/gamenight-41b97";
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateLifetime = true,
-            ValidateAudience = true,
-            ValidateIssuer = true,
-            ValidAudience = "gamenight-41b97",
-            ValidIssuer = "https://securetoken.google.com/gamenight-41b97"
-        };
-    });
+                .AddJwtBearer(options =>
+                    {
+                        options.IncludeErrorDetails = true;
+                        options.Authority = "https://securetoken.google.com/gamenight-41b97";
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateLifetime = true,
+                            ValidateAudience = true,
+                            ValidateIssuer = true,
+                            ValidAudience = "gamenight-41b97",
+                            ValidIssuer = "https://securetoken.google.com/gamenight-41b97"
+                        };
+                    });
             services.AddControllers();
 
             services.AddSingleton(Configuration);
+            services.AddTransient<UsersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +54,7 @@ namespace GameNight
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             }
 
             app.UseHttpsRedirection();
