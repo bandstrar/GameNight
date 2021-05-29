@@ -15,9 +15,9 @@ namespace GameNight.Controllers
     {
         GameGroupsRepository _repo;
 
-        public GameGroupsController()
+        public GameGroupsController(GameGroupsRepository repo)
         {
-            _repo = new GameGroupsRepository();
+            _repo = repo;
         }
 
         [HttpGet]

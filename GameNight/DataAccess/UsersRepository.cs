@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using GameNight.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,12 @@ namespace GameNight.DataAccess
 {
     public class UsersRepository
     {
-        const string ConnectionString = "Server=localhost;Database=GameNight;Trusted_Connection=True;";
+        readonly string ConnectionString;
+
+        public UsersRepository(IConfiguration config)
+        {
+            ConnectionString = config.GetConnectionString("GameNight");
+        }
 
         public List<User> GetAll()
         {

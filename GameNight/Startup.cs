@@ -50,6 +50,7 @@ namespace GameNight
             services.AddTransient<GroupUsersRepository>();
             services.AddTransient<BoardGamesRepository>();
             services.AddTransient<GameNightsRepository>();
+            services.AddTransient<GameNightGamesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
