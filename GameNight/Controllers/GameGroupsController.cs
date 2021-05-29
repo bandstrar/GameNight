@@ -44,7 +44,7 @@ namespace GameNight.Controllers
         {
             _repo.Add(group);
 
-            return Created($"api/SiteUsers/{group.Id}", group);
+            return Created($"api/groups/{group.Id}", group);
         }
 
         [HttpPut("{id}")]
