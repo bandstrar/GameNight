@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GameNight.Models
 {
-    public class GameNight
+    public class GameNights
     {
         public int Id { get; set; }
         public int GroupId { get; set; }
