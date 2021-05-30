@@ -27,7 +27,6 @@ const Auth = () => {
   };
 
   const logoutClickEvent = () => {
-    console.warn('clicked!');
     firebase.auth().signOut();
     window.location.reload();
   };
@@ -36,7 +35,7 @@ const Auth = () => {
     const user = firebase.auth().currentUser;
     let authBtn;
     if (user) {
-      authBtn = <button className='btn btn-secondary mt-1 auth-btn' onClick={() => logoutClickEvent()}>
+      authBtn = <button className='btn btn-secondary mt-1 auth-btn' onClick={logoutClickEvent}>
           Logout
         </button>;
     } else {

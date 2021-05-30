@@ -1,41 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.scss';
-import firebase from 'firebase';
 import { BrowserRouter as Router } from 'react-router-dom';
+import firebase from 'firebase';
+import Routes from '../helpers/Routes';
 import fbConnection from '../helpers/data/connection';
 import userData from '../helpers/data/userData';
-import Routes from '../helpers/Routes';
 
 fbConnection();
 
-const App = () => {
-  const [user, setUser] = useState('');
-  const [realUser, setRealUser] = useState({});
-
-  useEffect(() => {
-    const removeListener = firebase.auth().onAuthStateChanged((thisUser) => {
-      if (thisUser) {
-        // thisUser.getIdToken().then((token) => sessionStorage.setItem('token', token));
-        setUser(thisUser);
-        userData.getUserByUid(user.uid).then((currentUser) => {
-          setRealUser(currentUser[0]);
-        });
-      } else {
-        setUser(false);
-      }
-    });
-    return () => {
-      removeListener();
+class App extends React.Component {
+    state = {
+      user: '',
+      realUser: {},
     };
-  });
 
-  return (
-    <div className="App">
-    <Router>
-      <Routes user={user} realUser={realUser} />
-    </Router>
-  </div>
-  );
-};
+    componentDidMount() {
+      this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // user.getIdToken().then((token) => sessionStorage.setItem('token', token));
+          this.setState({ user });
+          userData.getUserByUid(user.uid).then((currentUser) => {
+            this.setState({ realUser: currentUser[0] });
+          });
+        } else {
+          this.setState({ user: false });
+        }
+      });
+    }
+
+    componentWillUnmount() {
+      this.removeListener();
+    }
+
+    render() {
+      return (
+      <div className="App">
+        <Router>
+          <Routes user={this.state.user} realUser={this.state.realUser} />
+        </Router>
+      </div>
+      );
+    }
+}
 
 export default App;
