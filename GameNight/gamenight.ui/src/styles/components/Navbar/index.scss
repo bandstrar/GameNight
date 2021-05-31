@@ -1,0 +1,15 @@
+.sidebar {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: fixed;
+  width: 20%;
+  background-color: white;
+  max-width: 200px;
+}
+
+.navbar-links {
+  color: black;
+}
