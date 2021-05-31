@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase';
@@ -13,7 +12,7 @@ fbConnection();
 
 const App = () => {
   const [fbUser, setFbUser] = useState('');
-  const [dbUser, setDbUser] = useState({});
+  const [dbUser, setDbUser] = useState('');
 
   useEffect(() => {
     const removeListener = firebase.auth().onAuthStateChanged((user) => {
@@ -33,12 +32,12 @@ const App = () => {
   }, []);
 
   return (
-      <div className="App">
-        <Router>
-          <MyNavbar realUser={dbUser} />
-          <Routes user={fbUser} realUser={dbUser} />
-        </Router>
-      </div>
+    <div className='App'>
+            <Router>
+                <MyNavbar realUser={dbUser} />
+                <Routes user={fbUser} realUser={dbUser} />
+    </Router>
+  </div>
   );
 };
 

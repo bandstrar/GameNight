@@ -1,30 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
-  Nav,
   NavItem,
+  Nav,
   NavbarBrand
 } from 'reactstrap';
 import Auth from '../Auth';
 
 const MyNavbar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
-
   const dbUser = props;
 
   return (
-    <>
-        <div>
-        <Navbar expand='md' dark className='col-md-12 d-none d-md-block sidebar'>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className='mr-auto' navbar>
-            <div className="sidebar-sticky"></div>
+        <Navbar expand='md' light className='sidebar'>
+            <div>
+              <Nav>
             <NavbarBrand>
                 <Link className="m-3 nav-link navbar-links nav-font" to='/'>GameNight</Link>
               </NavbarBrand>
@@ -36,15 +26,17 @@ const MyNavbar = (props) => {
                   My Games
                 </Link>
               </NavItem>
+              </Nav>
+              </div>
+              <div>
+                <Nav>
+            {dbUser.realUser && <NavItem>
+              <h3>Welcome {dbUser.realUser.firstName}!</h3>
+            </NavItem>}
             </Nav>
-            <NavItem>
-              {dbUser.realUser !== '' && <h3>Welcome {dbUser.realUser.firstName}!</h3>}
-            </NavItem>
             <Auth />
-          </Collapse>
+            </div>
         </Navbar>
-      </div>
-        </>
   );
 };
 
