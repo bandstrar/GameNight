@@ -28,7 +28,7 @@ namespace GameNight.DataAccess
             return db.Query<GameGroup>(sql).ToList();
         }
 
-        public IEnumerable<GameGroup> Get(string id)
+        public IEnumerable<GameGroup> Get(int id)
         {
             using var db = new SqlConnection(ConnectionString);
 
@@ -39,6 +39,32 @@ namespace GameNight.DataAccess
             var group = db.Query<GameGroup>(sql, new { id });
 
             return group;
+        }
+
+        public IEnumerable<GameGroup> GetByUserId(int id)
+        {
+            using var db = new SqlConnection(ConnectionString);
+            var userId = id;
+
+            var sql = @"select *
+                        from GameGroup gg
+                            join groupUser gu
+                                on gu.groupId = gg.id
+                            join siteUser su
+                                on su.id = gu.userId
+                        where su.id = @id
+                        and gu.isActive = 1";
+
+            var groups = db.Query<GameGroup, GroupUser, User, GameGroup>(sql,
+                (gameGroup, groupUser, user) =>
+                {
+                    groupUser.User = user;
+                    groupUser.GameGroup = gameGroup;
+
+                    return gameGroup;
+                }, new { id }, splitOn: "Id");
+
+            return groups;
         }
 
         public void Add(GameGroup group)

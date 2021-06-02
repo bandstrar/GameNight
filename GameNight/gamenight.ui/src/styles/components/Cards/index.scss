@@ -1,0 +1,16 @@
+.group-card-img {
+  width: 20vw;
+}
+
+.group-card-container {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 6;
+  justify-content: center;
+}
+
+.card-container {
+  width: 30%;
+  display: flex;
+  margin: 3% 3% 3% 0;
+}
