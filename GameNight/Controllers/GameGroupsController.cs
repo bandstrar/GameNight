@@ -27,7 +27,7 @@ namespace GameNight.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(string id)
+        public IActionResult GetById(int id)
         {
             var group = _repo.Get(id);
 
@@ -37,6 +37,19 @@ namespace GameNight.Controllers
             }
 
             return Ok(group);
+        }
+
+        [HttpGet("user/{id}")]
+        public IActionResult GetUserGroups(int id)
+        {
+            var groups = _repo.GetByUserId(id);
+
+            if (groups == null)
+            {
+                return NotFound("This user does not belong to any groups");
+            }
+
+            return Ok(groups);
         }
 
         [HttpPost]
