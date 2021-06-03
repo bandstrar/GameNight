@@ -61,6 +61,29 @@ namespace GameNight.DataAccess
             return foundGroupUser;
         }
 
+        public IEnumerable<GroupUser> GetCurrentUser(int userId, int groupId)
+        {
+            var sql = @"select * from GroupUser gu
+	                        join SiteUser su
+		                        on su.id = gu.UserId
+	                        join GameGroup gg
+		                        on gg.Id = gu.GroupId
+                        where su.id = @userId
+                        and gg.id = @groupId";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            var foundGroupUser = db.Query<GroupUser, User, GameGroup, GroupUser>(sql,
+                (groupUser, user, gameGroup) =>
+                {
+                    groupUser.User = user;
+                    groupUser.GameGroup = gameGroup;
+
+                    return groupUser;
+                }, new { userId, groupId });
+            return foundGroupUser;
+        }
+
         public IEnumerable<GroupUser> GetActiveByGroupId(int id)
         {
             var sql = @"select * from GroupUser gu
