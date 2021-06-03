@@ -9,4 +9,10 @@ const getUserGroups = (userId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getUserGroups };
+const getSingleGroup = (groupId) => new Promise((resolve, reject) => {
+  axios.get(`${groupUrl}/${groupId}`).then((response) => {
+    resolve(response.data[0]);
+  }).catch((error) => reject(error));
+});
+
+export default { getUserGroups, getSingleGroup };

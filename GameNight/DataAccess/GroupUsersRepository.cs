@@ -61,6 +61,52 @@ namespace GameNight.DataAccess
             return foundGroupUser;
         }
 
+        public IEnumerable<GroupUser> GetActiveByGroupId(int id)
+        {
+            var sql = @"select * from GroupUser gu
+	                        join SiteUser su
+		                        on su.id = gu.UserId
+	                        join GameGroup gg
+		                        on gg.Id = gu.GroupId
+                        where gg.id = @id
+                        and gu.isActive = 1";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            var foundGroupUser = db.Query<GroupUser, User, GameGroup, GroupUser>(sql,
+                (groupUser, user, gameGroup) =>
+                {
+                    groupUser.User = user;
+                    groupUser.GameGroup = gameGroup;
+
+                    return groupUser;
+                }, new { id }, splitOn: "Id");
+            return foundGroupUser;
+        }
+
+        public IEnumerable<GroupUser> GetInactiveByGroupId(int id)
+        {
+            var sql = @"select * from GroupUser gu
+	                        join SiteUser su
+		                        on su.id = gu.UserId
+	                        join GameGroup gg
+		                        on gg.Id = gu.GroupId
+                        where gg.id = @id
+                        and gu.isActive = 0";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            var foundGroupUser = db.Query<GroupUser, User, GameGroup, GroupUser>(sql,
+                (groupUser, user, gameGroup) =>
+                {
+                    groupUser.User = user;
+                    groupUser.GameGroup = gameGroup;
+
+                    return groupUser;
+                }, new { id }, splitOn: "Id");
+            return foundGroupUser;
+        }
+
         public void Add(GroupUser groupUser)
         {
             var sql = @"INSERT INTO [GroupUser] ([UserId],[GroupId],[Admin],[IsActive])
