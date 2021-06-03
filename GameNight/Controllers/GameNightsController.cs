@@ -41,6 +41,19 @@ namespace GameNight.Controllers
             return Ok(gameNight);
         }
 
+        [HttpGet("group/{id}")]
+        public IActionResult GetNightByGroupId(int id)
+        {
+            var gameNight = _repo.GetByGroupId(id);
+
+            if (gameNight == null)
+            {
+                return NotFound("This group does not have any game nights");
+            }
+
+            return Ok(gameNight);
+        }
+
         [HttpPost]
         public IActionResult AddGameNight(GameNights gameNight)
         {

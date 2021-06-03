@@ -4,6 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import Home from '../views/Home';
 import Groups from '../views/Groups';
 import Games from '../views/Games';
+import GroupDetails from '../views/GroupDetails';
+import GameNight from '../views/GameNight';
 
 const PrivateRoute = ({
   component: Component, dbUser, ...rest
@@ -22,6 +24,8 @@ const Routes = (props) => {
     <Route exact path='/' component={() => <Home />} />
     <PrivateRoute exact path='/my-groups' component={Groups} dbUser={userInfo.realUser} />
     <PrivateRoute exact path='/my-games' component={Games} dbUser={userInfo.realUser} />
+    <Route exact path='/group/:id' component={(groupProps) => <GroupDetails dbUser={userInfo.realUser} {...groupProps} />} />
+    <Route exact path='/gameNight/:id' component={(groupProps) => <GameNight dbUser={userInfo.realUser} {...groupProps} />} />
   </Switch>
   );
 };

@@ -41,6 +41,45 @@ namespace GameNight.Controllers
             return Ok(user);
         }
 
+        [HttpGet("{id}/{groupId}")]
+        public IActionResult GetCurrentGroupUser(int id, int groupId)
+        {
+            var user = _repo.GetCurrentUser(id, groupId);
+
+            if (user == null)
+            {
+                return NotFound("This user does not belong to this group.");
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet("group/{id}/active")]
+        public IActionResult GetActiveGroupUsers(int id)
+        {
+            var user = _repo.GetActiveByGroupId(id);
+
+            if (user == null)
+            {
+                return NotFound("This group does not have any active users");
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet("group/{id}/inactive")]
+        public IActionResult GetInactiveGroupUsers(int id)
+        {
+            var user = _repo.GetInactiveByGroupId(id);
+
+            if (user == null)
+            {
+                return NotFound("This group does not have any inactive users");
+            }
+
+            return Ok(user);
+        }
+
         [HttpPost]
         public IActionResult AddGroupUser(GroupUser groupUser)
         {
