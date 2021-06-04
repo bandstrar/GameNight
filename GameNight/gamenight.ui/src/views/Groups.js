@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
 import groupData from '../helpers/data/groupData';
 import GroupCard from '../components/Cards/groupCard';
+import AppModal from '../components/AppModal';
+import GroupForm from '../components/Forms/GroupForm';
 
 const Groups = (props) => {
   const userInfo = props;
@@ -28,7 +30,7 @@ const Groups = (props) => {
       </div>
       <div className="group-button-container">
       <Button className="mr-3">Find a Group</Button>
-      <Button>Create a Group</Button>
+      <AppModal modalTitle={'Create a Group'} buttonLabel={'Create a Group'}><GroupForm onUpdate={() => showGroups()}/></AppModal>
       </div>
       </div>
       <div>
