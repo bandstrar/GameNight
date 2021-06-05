@@ -13,6 +13,7 @@ const GroupDetails = (props) => {
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
   const [currentGroupUser, setCurrentGroupUser] = useState({});
+  const [clicked, setClicked] = useState(false);
 
   const getGroupInfo = (groupId) => {
     groupData.getSingleGroup(groupId).then((res) => {
@@ -71,6 +72,11 @@ const GroupDetails = (props) => {
     ))
   );
 
+  const deactivateButton = () => {
+    const currentState = clicked;
+    setClicked(!currentState);
+  };
+
   const requestToJoin = () => {
     const userData = {
       userId: groupDetailsProps.dbUser.id,
@@ -79,6 +85,7 @@ const GroupDetails = (props) => {
       isActive: false
     };
     groupUserData.createGroupUser(userData);
+    deactivateButton();
   };
 
   return (
@@ -90,7 +97,9 @@ const GroupDetails = (props) => {
     </div>
     <p>{groupInfo.description}</p>
     {currentGroupUser?.admin === true && <Button>Create a game night</Button>}
-    {!currentGroupUser && <Button onClick={() => requestToJoin()}>Request to Join This Group</Button>}
+    {!currentGroupUser
+    && <>{clicked ? (<Button disabled>Request sent!</Button>)
+      : <Button onClick={() => requestToJoin()}>Request to Join This Group</Button>}</>}
     </div>
     <div>
       <img className="w-50 mt-5 mb-4" src={groupInfo.image} alt={groupInfo.name} />
