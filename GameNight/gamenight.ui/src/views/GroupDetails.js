@@ -71,6 +71,16 @@ const GroupDetails = (props) => {
     ))
   );
 
+  const requestToJoin = () => {
+    const userData = {
+      userId: groupDetailsProps.dbUser.id,
+      groupId: groupInfo.id,
+      admin: false,
+      isActive: false
+    };
+    groupUserData.createGroupUser(userData);
+  };
+
   return (
     <div>
     <div className="d-flex col-wrap justify-content-end">
@@ -79,7 +89,8 @@ const GroupDetails = (props) => {
     <h1>{groupInfo.name}</h1>
     </div>
     <p>{groupInfo.description}</p>
-    <Button>Create a game night</Button>
+    {currentGroupUser?.admin === true && <Button>Create a game night</Button>}
+    {!currentGroupUser && <Button onClick={() => requestToJoin()}>Request to Join This Group</Button>}
     </div>
     <div>
       <img className="w-50 mt-5 mb-4" src={groupInfo.image} alt={groupInfo.name} />
@@ -91,7 +102,7 @@ const GroupDetails = (props) => {
         <h4>Active Members</h4>
         {showActiveUsers()}
       </div>
-      {currentGroupUser.admin === true && <div className="group-inactive-users">
+      {currentGroupUser?.admin === true && <div className="group-inactive-users">
         <h4>Inactive Members</h4>
         {showInactiveUsers()}
       </div>}
