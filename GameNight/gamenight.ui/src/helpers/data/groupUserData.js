@@ -21,4 +21,8 @@ const getCurrentGroupUser = (userId, groupId) => new Promise((resolve, reject) =
   }).catch((error) => reject(error));
 });
 
-export default { getActiveGroupUsers, getInactiveGroupUsers, getCurrentGroupUser };
+const createGroupUser = (groupUserInfo) => axios.post(`${groupUserUrl}`, groupUserInfo).catch((err) => console.warn(err));
+
+export default {
+  getActiveGroupUsers, getInactiveGroupUsers, getCurrentGroupUser, createGroupUser
+};

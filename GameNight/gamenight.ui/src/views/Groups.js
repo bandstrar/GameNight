@@ -9,10 +9,14 @@ const Groups = (props) => {
   const userInfo = props;
   const [userGroups, setUserGroups] = useState([]);
 
-  useEffect(() => {
-    groupData.getUserGroups(userInfo.user.id).then((response) => {
+  const getGroups = (userId) => {
+    groupData.getUserGroups(userId).then((response) => {
       setUserGroups(response);
     });
+  };
+
+  useEffect(() => {
+    getGroups(userInfo.user.id);
   }, []);
 
   const showGroups = () => (
@@ -30,7 +34,7 @@ const Groups = (props) => {
       </div>
       <div className="group-button-container">
       <Button className="mr-3">Find a Group</Button>
-      <AppModal modalTitle={'Create a Group'} buttonLabel={'Create a Group'}><GroupForm onUpdate={() => showGroups()}/></AppModal>
+      <AppModal modalTitle={'Create a Group'} buttonLabel={'Create a Group'}><GroupForm dbUserId={userInfo.user.id} onUpdate={() => getGroups(userInfo.user.id)}/></AppModal>
       </div>
       </div>
       <div>
