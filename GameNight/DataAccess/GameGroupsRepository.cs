@@ -41,6 +41,20 @@ namespace GameNight.DataAccess
             return group;
         }
 
+        public IEnumerable<GameGroup> GetSearched(string term)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"select top 20 *
+                        from GameGroup gg
+                        WHERE gg.name like '%' + @searchTerm + '%'
+                        OR gg.description like '%' + @searchTerm + '%'";
+
+            var group = db.Query<GameGroup>(sql, new { searchTerm = term }).ToList();
+
+            return group;
+        }
+
         public IEnumerable<GameGroup> GetByUserId(int id)
         {
             using var db = new SqlConnection(ConnectionString);

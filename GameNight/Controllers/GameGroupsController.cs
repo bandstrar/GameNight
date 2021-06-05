@@ -39,6 +39,14 @@ namespace GameNight.Controllers
             return Ok(group);
         }
 
+        [HttpGet("search/{term}")]
+        public IActionResult GetSearchedGroups(string term)
+        {
+            var groups = _repo.GetSearched(term);
+
+            return Ok(groups);
+        }
+
         [HttpGet("user/{id}")]
         public IActionResult GetUserGroups(int id)
         {
@@ -53,7 +61,7 @@ namespace GameNight.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(GameGroup group)
+        public IActionResult AddGroup(GameGroup group)
         {
             _repo.Add(group);
 
@@ -61,7 +69,7 @@ namespace GameNight.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(GameGroup group)
+        public IActionResult UpdateGroup(GameGroup group)
         {
             _repo.Update(group);
 
