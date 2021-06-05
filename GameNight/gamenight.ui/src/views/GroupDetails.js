@@ -59,6 +59,19 @@ const GroupDetails = (props) => {
     });
   };
 
+  const deactivateButton = () => {
+    const currentState = clicked;
+    setClicked(!currentState);
+  };
+
+  const leaveGroup = (userId, groupId) => {
+    groupUserData.deleteGroupUser(userId).then(() => {
+      getActiveUsers(groupId);
+      getInactiveUsers(groupId);
+      deactivateButton();
+    });
+  };
+
   useEffect(() => {
     const groupId = groupDetailsProps.match.params.id;
     getGroupInfo(groupId);
@@ -92,11 +105,6 @@ const GroupDetails = (props) => {
     ))
   );
 
-  const deactivateButton = () => {
-    const currentState = clicked;
-    setClicked(!currentState);
-  };
-
   const requestToJoin = () => {
     const userData = {
       userId: groupDetailsProps.dbUser.id,
@@ -116,6 +124,9 @@ const GroupDetails = (props) => {
     <h1>{groupInfo.name}</h1>
     </div>
     <p>{groupInfo.description}</p>
+    {(currentGroupUser?.admin === false && currentGroupUser?.isActive === true)
+    && <>{clicked ? (<Button disabled>You left the group!</Button>)
+      : <Button onClick={() => leaveGroup(currentGroupUser.id, groupDetailsProps.match.params.id)}>Leave Group</Button>}</>}
     {currentGroupUser?.admin === true && <Button>Create a game night</Button>}
     {!currentGroupUser
     && <>{clicked ? (<Button disabled>Request sent!</Button>)

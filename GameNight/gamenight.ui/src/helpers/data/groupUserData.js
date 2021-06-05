@@ -21,6 +21,8 @@ const getCurrentGroupUser = (userId, groupId) => new Promise((resolve, reject) =
   }).catch((error) => reject(error));
 });
 
+const deleteGroupUser = (userId) => axios.delete(`${groupUserUrl}/${userId}`).catch((err) => console.warn(err));
+
 const createGroupUser = (groupUserInfo) => axios.post(`${groupUserUrl}`, groupUserInfo).catch((err) => console.warn(err));
 
 const makeGroupUserInactive = (userId) => axios.put(`${groupUserUrl}/${userId}/makeInactive`).catch((err) => console.warn(err));
@@ -28,5 +30,5 @@ const makeGroupUserInactive = (userId) => axios.put(`${groupUserUrl}/${userId}/m
 const approveGroupUser = (userId) => axios.put(`${groupUserUrl}/${userId}/approve`).catch((err) => console.warn(err));
 
 export default {
-  getActiveGroupUsers, getInactiveGroupUsers, getCurrentGroupUser, createGroupUser, makeGroupUserInactive, approveGroupUser
+  getActiveGroupUsers, getInactiveGroupUsers, getCurrentGroupUser, createGroupUser, makeGroupUserInactive, approveGroupUser, deleteGroupUser
 };
