@@ -27,3 +27,42 @@
 .individual-results {
    width: 20vw
 }
+
+.group-button {
+  background: transparent;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+}
+
+.group-button:hover {
+  background: transparent;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+}
+
+.group-button:active {
+  outline: none;
+  border: none;
+}
+
+.group-button:focus {
+  outline: 0;
+}
+
+.deactivate-button {
+  color: hsl(0, 100%, 70%);;
+}
+
+.approve-button {
+  color: hsl(120, 60%, 70%)
+}
+
+.deactivate-button:hover {
+  color: red;
+}
+
+.approve-button:hover {
+  color: green;
+}
