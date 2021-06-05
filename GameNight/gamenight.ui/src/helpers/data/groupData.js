@@ -15,4 +15,12 @@ const getSingleGroup = (groupId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getUserGroups, getSingleGroup };
+const updateGroup = (id, groupInfo) => axios
+  .put(`${groupUrl}/${id}`, groupInfo)
+  .catch((err) => console.warn(err));
+
+const createNewGroup = (groupInfo) => axios.post(`${groupUrl}`, groupInfo).catch((err) => console.warn(err));
+
+export default {
+  getUserGroups, getSingleGroup, createNewGroup, updateGroup
+};
