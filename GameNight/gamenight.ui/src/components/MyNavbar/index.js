@@ -20,12 +20,12 @@ const MyNavbar = (props) => {
                 <Link className="m-3 nav-link navbar-links nav-font" to='/'>GameNight</Link>
               </NavbarBrand>
               {dbUser.realUser && <NavItem>
-                <Link className="m-3 nav-link navbar-links nav-font" to='/my-groups'>My Groups</Link>
-              </NavItem>}
-              {dbUser.realUser && <NavItem>
                 <Link className="m-3 nav-link navbar-links nav-font" to='/my-games'>
                   My Games
                 </Link>
+              </NavItem>}
+              {dbUser.realUser && <NavItem>
+                <Link className="m-3 nav-link navbar-links nav-font" to='/my-groups'>My Groups</Link>
               </NavItem>}
               {dbUser.realUser && <><SearchInput />
               <p className="mt-2">Search for a Group</p></>}

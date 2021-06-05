@@ -41,6 +41,19 @@ namespace GameNight.Controllers
             return Ok(gameNightGame);
         }
 
+        [HttpGet("gameNight/{id}")]
+        public IActionResult GetNightGameByNightId(int id)
+        {
+            var gameNightGame = _repo.GetByGameNightId(id);
+
+            if (gameNightGame == null)
+            {
+                return NotFound("This game night id does not exist");
+            }
+
+            return Ok(gameNightGame);
+        }
+
         [HttpPost]
         public IActionResult AddGameNightGame(GameNightGame gameNightGame)
         {

@@ -9,4 +9,10 @@ const getAllGroupGameNights = (groupId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getAllGroupGameNights };
+const getSingleGameNight = (nightId) => new Promise((resolve, reject) => {
+  axios.get(`${gameNightUrl}/${nightId}`).then((response) => {
+    resolve(response.data[0]);
+  }).catch((error) => reject(error));
+});
+
+export default { getAllGroupGameNights, getSingleGameNight };
