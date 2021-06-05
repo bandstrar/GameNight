@@ -7,6 +7,7 @@ import {
   NavbarBrand
 } from 'reactstrap';
 import Auth from '../Auth';
+import SearchInput from '../SearchInput';
 
 const MyNavbar = (props) => {
   const dbUser = props;
@@ -26,6 +27,8 @@ const MyNavbar = (props) => {
                   My Games
                 </Link>
               </NavItem>}
+              {dbUser.realUser && <><SearchInput />
+              <p className="mt-2">Search for a Group</p></>}
               </Nav>
               </div>
               <div>

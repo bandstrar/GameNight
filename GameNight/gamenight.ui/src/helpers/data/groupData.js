@@ -15,6 +15,12 @@ const getSingleGroup = (groupId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
+const getSearchedGroups = (searchTerm) => new Promise((resolve, reject) => {
+  axios.get(`${groupUrl}/search/${searchTerm}`).then((response) => {
+    resolve(response.data);
+  }).catch((error) => reject(error));
+});
+
 const updateGroup = (id, groupInfo) => axios
   .put(`${groupUrl}/${id}`, groupInfo)
   .catch((err) => console.warn(err));
@@ -22,5 +28,5 @@ const updateGroup = (id, groupInfo) => axios
 const createNewGroup = (groupInfo) => axios.post(`${groupUrl}`, groupInfo).catch((err) => console.warn(err));
 
 export default {
-  getUserGroups, getSingleGroup, createNewGroup, updateGroup
+  getUserGroups, getSingleGroup, createNewGroup, updateGroup, getSearchedGroups
 };
