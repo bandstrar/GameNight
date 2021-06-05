@@ -45,6 +45,20 @@ const GroupDetails = (props) => {
     });
   };
 
+  const deactivateUser = (userId, groupId) => {
+    groupUserData.makeGroupUserInactive(userId).then(() => {
+      getActiveUsers(groupId);
+      getInactiveUsers(groupId);
+    });
+  };
+
+  const approveUser = (userId, groupId) => {
+    groupUserData.approveGroupUser(userId).then(() => {
+      getActiveUsers(groupId);
+      getInactiveUsers(groupId);
+    });
+  };
+
   useEffect(() => {
     const groupId = groupDetailsProps.match.params.id;
     getGroupInfo(groupId);
@@ -62,13 +76,19 @@ const GroupDetails = (props) => {
 
   const showActiveUsers = () => (
     activeUsers.map((user) => (
-      <p key={user.id}>{user.user.firstName} {user.user.lastName}</p>
+      <div className="d-flex col-wrap justify-content-center" key={user.id}>
+      <p className="mt-2">{user.user.firstName} {user.user.lastName}</p>
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => deactivateUser(user.id, groupDetailsProps.match.params.id)}><i className="deactivate-button fas fa-times-circle"></i></Button>}
+      </div>
     ))
   );
 
   const showInactiveUsers = () => (
     inactiveUsers.map((user) => (
-      <p key={user.id}>{user.user.firstName} {user.user.lastName}</p>
+      <div className="d-flex col-wrap justify-content-center" key={user.id}>
+      <p className="mt-2">{user.user.firstName} {user.user.lastName}</p>
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => approveUser(user.id, groupDetailsProps.match.params.id)}><i className="approve-button fas fa-check-circle"></i></Button>}
+      </div>
     ))
   );
 

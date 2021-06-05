@@ -23,6 +23,7 @@ const Auth = () => {
         // save the user to the the api
         axios.post(`${baseUrl}/users`, userInfo);
       }
+      window.location.reload();
     });
   };
 
