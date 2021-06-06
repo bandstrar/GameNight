@@ -86,7 +86,8 @@ namespace GameNight.DataAccess
                                 on su.id = bg.userId
                             join GameGroup gg
                                 on gg.id = gn.groupId
-                        where gn.id = @id";
+                        where gn.id = @id
+                        order by gng.votes desc";
 
             using var db = new SqlConnection(ConnectionString);
 
