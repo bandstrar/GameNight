@@ -30,10 +30,6 @@ const GameNight = (props) => {
     });
   };
 
-  const addGameToNight = (gameInfo) => {
-    nightGameData.addGameToNight(gameInfo);
-  };
-
   const showNightGames = () => (
     nightGames.map((game) => (
       <NightGameCard key={game.id} game={game} />
@@ -42,7 +38,7 @@ const GameNight = (props) => {
 
   const showGroupGames = () => (
     groupGames.map((game) => (
-      <GroupGameCard key={game.id} game={game} nightId={nightInfo.id} addGame={addGameToNight} />
+      <GroupGameCard key={game.id} game={game} nightId={nightInfo.id} />
     ))
   );
 
