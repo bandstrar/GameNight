@@ -64,18 +64,28 @@ namespace GameNight.DataAccess
 	                        join GroupUser gu
 		                        on gu.UserId = bg.UserId
                         where gu.GroupId = @id
-						and gu.IsActive = 1";
+						and gu.IsActive = 1
+                        ORDER BY bg.title ASC";
 
             using var db = new SqlConnection(ConnectionString);
+
+            var games = new Dictionary<string, BoardGame>();
 
             var boardGames = db.Query<BoardGame, User, GroupUser, BoardGame>(sql,
                 (boardGame, user, groupUser) =>
                 {
-                    boardGame.User = user;
+                    if (!games.TryGetValue(boardGame.Title, out var game))
+                    {
+                        game = boardGame;
+                        boardGame.User = user;
+                        games.Add(game.Title, game);
+                    }
+                    
                     groupUser.User = user;
 
-                    return boardGame;
-                }, new { id }, splitOn: "Id");
+                    return game;
+                }, new { id }, splitOn: "Id")
+                .Distinct();
             return boardGames;
         }
 

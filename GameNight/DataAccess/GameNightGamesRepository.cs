@@ -75,6 +75,36 @@ namespace GameNight.DataAccess
             return gameNightGames;
         }
 
+        public IEnumerable<GameNightGame> GetByGameNightId(int id)
+        {
+            var sql = @"select * from GameNightGame gng
+                            join BoardGame bg
+                                on bg.id = gng.gameId
+	                        join GameNight gn
+		                        on gn.id = gng.gameNightId
+                            join SiteUser su
+                                on su.id = bg.userId
+                            join GameGroup gg
+                                on gg.id = gn.groupId
+                        where gn.id = @id
+                        order by gng.votes desc";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            var gameNightGames = db.Query<GameNightGame, BoardGame, GameNights, User, GameGroup, GameNightGame>(sql,
+                (gameNightGame, boardGame, gameNight, user, gameGroup) =>
+                {
+                    gameNightGame.Game = boardGame;
+                    gameNightGame.GameNight = gameNight;
+
+                    boardGame.User = user;
+                    gameNight.GameGroup = gameGroup;
+
+                    return gameNightGame;
+                }, new { id });
+            return gameNightGames;
+        }
+
         public void Add(GameNightGame gameNightGame)
         {
             var sql = @"INSERT INTO [GameNightGame] ([GameId],[GameNightId],[Votes])
