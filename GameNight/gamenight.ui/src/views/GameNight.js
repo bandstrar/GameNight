@@ -20,12 +20,19 @@ const GameNight = (props) => {
       setNightInfo(res);
       nightGameData.getByNightId(res.id).then((re) => {
         setNightGames(re);
+        gameData.getbyGroupId(res.groupId).then((response) => {
+          const nightlessGames = [];
+          response.forEach((game) => {
+            const included = (nightGame) => nightGame.gameId === game.id;
+            if (!re.some(included)) {
+              nightlessGames.push(game);
+            }
+          });
+          setGroupGames(nightlessGames);
+        });
       });
       groupData.getSingleGroup(res.groupId).then((response) => {
         setGroupInfo(response);
-      });
-      gameData.getbyGroupId(res.groupId).then((response) => {
-        setGroupGames(response);
       });
     });
   };
