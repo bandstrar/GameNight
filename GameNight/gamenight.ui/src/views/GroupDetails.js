@@ -13,6 +13,7 @@ const GroupDetails = (props) => {
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
   const [currentGroupUser, setCurrentGroupUser] = useState({});
+  const [didMount, setDidMount] = useState(false);
   const [clicked, setClicked] = useState(false);
 
   const getGroupInfo = (groupId) => {
@@ -79,6 +80,8 @@ const GroupDetails = (props) => {
     getActiveUsers(groupId);
     getInactiveUsers(groupId);
     getCurrentUser(groupDetailsProps.dbUser.id, groupId);
+    setDidMount(true);
+    return () => setDidMount(false);
   }, []);
 
   const showGameNights = () => (
@@ -115,6 +118,10 @@ const GroupDetails = (props) => {
     groupUserData.createGroupUser(userData);
     deactivateButton();
   };
+
+  if (!didMount) {
+    return null;
+  }
 
   return (
     <div>
