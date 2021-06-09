@@ -4,6 +4,12 @@
   object-fit: cover;
 }
 
+.game-card-img {
+  max-width: 15vw;
+  max-height: 20vw;
+  object-fit: cover;
+}
+
 .group-card-container {
   display: flex;
   flex-flow: row wrap;
