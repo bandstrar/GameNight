@@ -67,12 +67,12 @@ const GameNight = (props) => {
   );
 
   const filterGames = (filterData) => {
-    const gamesFiltered = groupGames.filter((game) => game.title.includes(filterData.title)
-    && game.minPlayers >= filterData.minNumber
-    && game.maxPlayers <= filterData.maxNumber
-    && game.weight === Number(filterData.weight)
-    && game.lengthInMinutes <= filterData.lengthInMinutes
-    && game.genre.includes(filterData.genre));
+    const gamesFiltered = groupGames.filter((game) => game.title.toLowerCase().includes(filterData.title.toLowerCase())
+    && game.minPlayers >= (filterData.minNumber || 1)
+    && game.maxPlayers <= (filterData.maxNumber || 99)
+    && (filterData.weight !== 'any' ? game.weight === Number(filterData.weight) : game.weight >= 0)
+    && game.lengthInMinutes <= (filterData.lengthInMinutes || 1000)
+    && game.genre.toLowerCase().includes(filterData.genre.toLowerCase()));
     setFilteredGames(gamesFiltered);
     setFiltered(true);
   };
@@ -88,6 +88,8 @@ const GameNight = (props) => {
     return null;
   }
 
+  const nightDate = new Date(nightInfo.date);
+
   return (
     <div>
       <div className="d-flex col-wrap justify-content-end">
@@ -95,6 +97,7 @@ const GameNight = (props) => {
           <div>
       <h1>{nightInfo.title}</h1>
       </div>
+      <h3>{nightDate.toDateString()}</h3>
       <p>{nightInfo.description}</p>
       </div>
       <div>

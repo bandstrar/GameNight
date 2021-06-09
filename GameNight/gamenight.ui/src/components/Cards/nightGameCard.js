@@ -10,7 +10,7 @@ const NightGameCard = (props) => {
   return (
     <div className="card-container">
     <Card className="group-card">
-      <Link to={`/game/${gameInfo.game.game.id}`}><CardImg top width="100%" className="group-card-img" src={gameInfo.game.game.gameImage} alt={gameInfo.game.game.title} /></Link>
+      <Link to={`/game/${gameInfo.game.game.id}`}><CardImg top width="100%" className="game-card-img" src={gameInfo.game.game.gameImage} alt={gameInfo.game.game.title} /></Link>
       <CardBody className="group-card-body">
         <CardTitle tag="h5" className="group-name">{`${gameInfo.game.game.title} - ${gameInfo.game.votes}`} {gameInfo.game.votes === 1 ? 'vote' : 'votes'}</CardTitle>
       </CardBody>

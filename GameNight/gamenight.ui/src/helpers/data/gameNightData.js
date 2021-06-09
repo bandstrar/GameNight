@@ -15,4 +15,12 @@ const getSingleGameNight = (nightId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getAllGroupGameNights, getSingleGameNight };
+const updateGameNight = (id, nightInfo) => axios
+  .put(`${gameNightUrl}/${id}`, nightInfo)
+  .catch((err) => console.warn(err));
+
+const createGameNight = (nightInfo) => axios.post(`${gameNightUrl}`, nightInfo).catch((err) => console.warn(err));
+
+export default {
+  getAllGroupGameNights, getSingleGameNight, createGameNight, updateGameNight
+};

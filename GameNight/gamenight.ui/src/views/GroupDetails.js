@@ -3,6 +3,8 @@ import { Button } from 'reactstrap';
 import groupData from '../helpers/data/groupData';
 import gameNightData from '../helpers/data/gameNightData';
 import groupUserData from '../helpers/data/groupUserData';
+import AppModal from '../components/AppModal';
+import GameNightForm from '../components/Forms/GameNightForm';
 import GameNightCard from '../components/Cards/gameNightCard';
 
 const GroupDetails = (props) => {
@@ -134,7 +136,10 @@ const GroupDetails = (props) => {
     {(currentGroupUser?.admin === false && currentGroupUser?.isActive === true)
     && <>{clicked ? (<Button disabled>You left the group!</Button>)
       : <Button onClick={() => leaveGroup(currentGroupUser.id, groupDetailsProps.match.params.id)}>Leave Group</Button>}</>}
-    {currentGroupUser?.admin === true && <Button>Create a game night</Button>}
+    {currentGroupUser?.admin === true
+    && <AppModal modalTitle={'Create a Game Night'} buttonLabel={'Create a Game Night'}>
+      <GameNightForm groupId={groupInfo.id} onUpdate={() => getGameNights(groupInfo.id)}/>
+      </AppModal>}
     {!currentGroupUser
     && <>{clicked ? (<Button disabled>Request sent!</Button>)
       : <Button onClick={() => requestToJoin()}>Request to Join This Group</Button>}</>}
