@@ -143,6 +143,17 @@ namespace GameNight.DataAccess
             db.Execute(sql, new { id });
         }
 
+        public void RemoveVote(int id)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"UPDATE [GameNightGame]
+                        SET [Votes] = [Votes] - 1
+                        WHERE id = @id";
+
+            db.Execute(sql, new { id });
+        }
+
         public void Remove(int id)
         {
             var sql = @"Delete 
