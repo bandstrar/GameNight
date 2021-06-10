@@ -9,16 +9,8 @@ const getByNightId = (nightId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-const addVoteToGame = (id) => axios
-  .put(`${nightGameUrl}/${id}/addVote`)
-  .catch((err) => console.warn(err));
-
-const removeVoteFromGame = (id) => axios
-  .put(`${nightGameUrl}/${id}/removeVote`)
-  .catch((err) => console.warn(err));
-
 const addGameToNight = (nightGameInfo) => axios.post(`${nightGameUrl}`, nightGameInfo).catch((err) => console.warn(err));
 
 export default {
-  getByNightId, addGameToNight, addVoteToGame, removeVoteFromGame
+  getByNightId, addGameToNight
 };
