@@ -11,4 +11,6 @@ const getByNightId = (nightId) => new Promise((resolve, reject) => {
 
 const addGameToNight = (nightGameInfo) => axios.post(`${nightGameUrl}`, nightGameInfo).catch((err) => console.warn(err));
 
-export default { getByNightId, addGameToNight };
+export default {
+  getByNightId, addGameToNight
+};

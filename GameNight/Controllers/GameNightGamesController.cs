@@ -70,14 +70,6 @@ namespace GameNight.Controllers
             return Ok(gameNightGame);
         }
 
-        [HttpPut("{id}/addVote")]
-        public IActionResult AddVoteForGame(int id)
-        {
-            _repo.AddVote(id);
-
-            return NoContent();
-        }
-
         [HttpDelete("{id}")]
         public IActionResult DeleteNightGame(int id)
         {
