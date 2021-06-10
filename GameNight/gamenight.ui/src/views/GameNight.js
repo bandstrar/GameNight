@@ -45,7 +45,7 @@ const GameNight = (props) => {
 
   const showNightGames = () => (
     nightGames.map((game) => (
-      <NightGameCard key={game.id} game={game} onUpdate={() => getNightInfo(nightInfo.id)} />
+      <NightGameCard key={game.id} game={game} dbUserId={gameNightProps.dbUser.id} />
     ))
   );
 

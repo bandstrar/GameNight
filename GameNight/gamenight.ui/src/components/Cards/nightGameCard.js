@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Card, CardImg, CardBody, CardTitle, Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import nightGameData from '../../helpers/data/nightGameData';
+import nightGameVoteData from '../../helpers/data/nightGameVoteData';
 
 const NightGameCard = (props) => {
   const gameInfo = props;
-  const [voted, setVoted] = useState(false);
+  const [gameVotes, setGameVotes] = useState([]);
 
-  const addVote = (nightGameId) => {
-    nightGameData.addVoteToGame(nightGameId).then(() => {
-      setVoted(true);
-      gameInfo.onUpdate();
+  const getGameVotes = (nightGameId) => {
+    nightGameVoteData.getByNightGameId(nightGameId).then((response) => {
+      if (response) {
+        setGameVotes(response);
+      }
     });
   };
 
-  const removeVote = (nightGameId) => {
-    nightGameData.removeVoteFromGame(nightGameId).then(() => {
-      setVoted(false);
-      gameInfo.onUpdate();
+  const addVote = (voteInfo) => {
+    nightGameVoteData.addVote(voteInfo).then(() => {
+      getGameVotes(gameInfo.game.id);
     });
   };
+
+  const removeVote = (nightGameId, userId) => {
+    nightGameVoteData.removeVote(nightGameId, userId).then(() => {
+      getGameVotes(gameInfo.game.id);
+    });
+  };
+
+  const included = (gameVote) => gameVote.userId === gameInfo.dbUserId;
+
+  useEffect(() => {
+    getGameVotes(gameInfo.game.id);
+  }, []);
 
   return (
     <div className="card-container">
@@ -29,9 +41,11 @@ const NightGameCard = (props) => {
       <Link to={`/game/${gameInfo.game.game.id}`}><CardImg top width="100%" className="game-card-img" src={gameInfo.game.game.gameImage} alt={gameInfo.game.game.title} /></Link>
       <CardBody className="group-card-body">
         <CardTitle tag="h5" className="group-name">
-          {`${gameInfo.game.game.title} - ${gameInfo.game.votes}`} {gameInfo.game.votes === 1 ? 'vote' : 'votes'}
-          {voted ? <Button onClick={() => removeVote(gameInfo.game.id)}>-</Button>
-            : <Button onClick={() => addVote(gameInfo.game.id)}>+</Button>}
+          {`${gameInfo.game.game.title} - ${gameVotes.length}`} {gameVotes.length === 1 ? 'vote' : 'votes'}
+          {gameVotes.some(included) ? <Button className='group-button deactivate-button' onClick={() => removeVote(gameInfo.game.id, gameInfo.dbUserId)}>
+            <i className="fas fa-minus-circle"></i></Button>
+            : <Button className='group-button approve-button' onClick={() => addVote({ nightGameId: gameInfo.game.id, userId: gameInfo.dbUserId })}>
+              <i className="fas fa-plus-circle"></i></Button>}
           </CardTitle>
       </CardBody>
     </Card>
