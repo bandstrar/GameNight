@@ -12,6 +12,5 @@ namespace GameNight.Models
         public BoardGame Game { get; set; }
         public int GameNightId { get; set; }
         public GameNights GameNight { get; set; }
-        public int Votes { get; set; }
     }
 }

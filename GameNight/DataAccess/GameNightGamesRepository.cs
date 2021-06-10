@@ -107,9 +107,9 @@ namespace GameNight.DataAccess
 
         public void Add(GameNightGame gameNightGame)
         {
-            var sql = @"INSERT INTO [GameNightGame] ([GameId],[GameNightId],[Votes])
+            var sql = @"INSERT INTO [GameNightGame] ([GameId],[GameNightId])
                         OUTPUT inserted.id
-                        VALUES(@gameId, @gameNightId, @votes)";
+                        VALUES(@gameId, @gameNightId)";
 
             using var db = new SqlConnection(ConnectionString);
 
@@ -126,32 +126,9 @@ namespace GameNight.DataAccess
             var sql = @"UPDATE [GameNightGame]
                         SET [GameId] = @GameId,
                             [GameNightId] = @GameNightId,
-                            [Votes] = @Votes
                         WHERE id = @id";
 
             db.Execute(sql, gameNightGame);
-        }
-
-        public void AddVote(int id)
-        {
-            using var db = new SqlConnection(ConnectionString);
-
-            var sql = @"UPDATE [GameNightGame]
-                        SET [Votes] = [Votes] + 1
-                        WHERE id = @id";
-
-            db.Execute(sql, new { id });
-        }
-
-        public void RemoveVote(int id)
-        {
-            using var db = new SqlConnection(ConnectionString);
-
-            var sql = @"UPDATE [GameNightGame]
-                        SET [Votes] = [Votes] - 1
-                        WHERE id = @id";
-
-            db.Execute(sql, new { id });
         }
 
         public void Remove(int id)
