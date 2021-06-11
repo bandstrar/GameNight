@@ -9,6 +9,7 @@ import NightGameCard from '../components/Cards/nightGameCard';
 import GroupGameCard from '../components/Cards/groupGameCard';
 import GameFilterForm from '../components/Forms/GameFilterForm';
 import AppModal from '../components/AppModal';
+import GameNightForm from '../components/Forms/GameNightForm';
 
 const GameNight = (props) => {
   const gameNightProps = props;
@@ -99,6 +100,9 @@ const GameNight = (props) => {
       </div>
       <h3>{nightDate.toDateString()}</h3>
       <p>{nightInfo.description}</p>
+      <AppModal modalTitle={'Update Game Night'} buttonLabel={'Update Game Night'}>
+      <GameNightForm night={nightInfo} groupId={groupInfo.id} onUpdate={() => getNightInfo(nightInfo.id)}/>
+      </AppModal>
       </div>
       <div>
         <img className="w-50 mt-5 mb-4" src={groupInfo.image} alt={`${groupInfo.name}`} />

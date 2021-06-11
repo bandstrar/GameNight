@@ -6,6 +6,7 @@ import groupUserData from '../helpers/data/groupUserData';
 import AppModal from '../components/AppModal';
 import GameNightForm from '../components/Forms/GameNightForm';
 import GameNightCard from '../components/Cards/gameNightCard';
+import GroupForm from '../components/Forms/GroupForm';
 
 const GroupDetails = (props) => {
   const groupDetailsProps = props;
@@ -137,9 +138,14 @@ const GroupDetails = (props) => {
     && <>{clicked ? (<Button disabled>You left the group!</Button>)
       : <Button onClick={() => leaveGroup(currentGroupUser.id, groupDetailsProps.match.params.id)}>Leave Group</Button>}</>}
     {currentGroupUser?.admin === true
-    && <AppModal modalTitle={'Create a Game Night'} buttonLabel={'Create a Game Night'}>
+    && <div>
+      <AppModal modalTitle={'Create a Game Night'} buttonLabel={'Create a Game Night'}>
       <GameNightForm groupId={groupInfo.id} onUpdate={() => getGameNights(groupInfo.id)}/>
-      </AppModal>}
+      </AppModal>
+      <AppModal modalTitle={'Update Group'} buttonLabel={'Update Group'}>
+      <GroupForm group={groupInfo} dbUserId={currentGroupUser.userId} onUpdate={() => getGroupInfo(groupInfo.id)}/>
+      </AppModal>
+      </div>}
     {!currentGroupUser
     && <>{clicked ? (<Button disabled>Request sent!</Button>)
       : <Button onClick={() => requestToJoin()}>Request to Join This Group</Button>}</>}
