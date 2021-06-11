@@ -11,7 +11,7 @@ const GameNightForm = (props) => {
       id: gameNight.night?.id || '',
       groupId: gameNight.groupId,
       title: data.title,
-      date: data.date,
+      date: data.date || gameNight.night?.date,
       description: data.description
     };
 
