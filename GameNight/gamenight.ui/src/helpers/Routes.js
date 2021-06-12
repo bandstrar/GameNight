@@ -7,6 +7,7 @@ import Games from '../views/Games';
 import GroupDetails from '../views/GroupDetails';
 import GameNight from '../views/GameNight';
 import SearchResults from '../views/SearchResults';
+import GameDetails from '../views/GameDetails';
 
 const PrivateRoute = ({
   component: Component, dbUser, ...rest
@@ -28,6 +29,7 @@ const Routes = (props) => {
     <Route exact path='/search/:term' component={(groupProps) => <SearchResults dbUser={userInfo.realUser} {...groupProps}/>} />
     <Route exact path='/group/:id' component={(groupProps) => <GroupDetails dbUser={userInfo.realUser} {...groupProps} />} />
     <Route exact path='/gameNight/:id' component={(groupProps) => <GameNight dbUser={userInfo.realUser} {...groupProps} />} />
+    <Route exact path='/game/:id' component={(groupProps) => <GameDetails dbUser={userInfo.realUser} {...groupProps} />} />
   </Switch>
   );
 };

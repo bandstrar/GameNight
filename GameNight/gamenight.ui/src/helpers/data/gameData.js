@@ -15,4 +15,10 @@ const getByUserId = (userId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getbyGroupId, getByUserId };
+const getSingleGame = (gameId) => new Promise((resolve, reject) => {
+  axios.get(`${gameUrl}/${gameId}`).then((response) => {
+    resolve(response.data[0]);
+  }).catch((error) => reject(error));
+});
+
+export default { getbyGroupId, getByUserId, getSingleGame };
