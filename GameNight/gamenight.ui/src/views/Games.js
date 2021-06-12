@@ -10,6 +10,7 @@ const Games = (props) => {
   const [userGames, setUserGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
   const [filtered, setFiltered] = useState(false);
+  const [didMount, setDidMount] = useState(false);
 
   const getUserGames = (userId) => {
     gameData.getByUserId(userId).then((response) => {
@@ -19,6 +20,8 @@ const Games = (props) => {
 
   useEffect(() => {
     getUserGames(userInfo.user.id);
+    setDidMount(true);
+    return () => setDidMount(false);
   }, []);
 
   const showFilteredGames = () => (
@@ -43,6 +46,10 @@ const Games = (props) => {
       <UserGameCard key={game.id} game={game} />
     ))
   );
+
+  if (!didMount) {
+    return null;
+  }
 
   return (
     <div>
