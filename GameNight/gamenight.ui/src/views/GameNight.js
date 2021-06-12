@@ -117,8 +117,8 @@ const GameNight = (props) => {
       <Button onClick={() => setNightView(true)}>Game Night Games</Button>
       <Button onClick={() => setNightView(false)}>Find a Game to Add</Button>
       </div>
-      {!nightView && <AppModal className="m-3" modalTitle='Filter Games' buttonLabel={'Filter Games'}><GameFilterForm filterGames={filterGames} /></AppModal>}
-      {!nightView && <Button className="m-3" onClick={() => setFiltered(false)}>Clear Filter</Button>}
+      {!nightView && <AppModal modalTitle='Filter Games' buttonLabel={'Filter Games'}><GameFilterForm filterGames={filterGames} /></AppModal>}
+      {!nightView && <Button onClick={() => setFiltered(false)}>Clear Filter</Button>}
       <div className="group-card-container">
       {nightView ? showNightGames()
         : (filtered ? showFilteredGames() : showGroupGames())}
