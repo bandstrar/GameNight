@@ -13,7 +13,7 @@ const PrivateRoute = ({
 }) => {
   const routeChecker = (route) => ((dbUser)
     ? (<Component {...route} user={dbUser} />)
-    : (<h1>Please log in to view your groups.</h1>));
+    : (<h1>Please log in to view this.</h1>));
 
   return <Route {...rest} render={(props) => routeChecker(props) } />;
 };

@@ -18,6 +18,7 @@ const GroupDetails = (props) => {
   const [currentGroupUser, setCurrentGroupUser] = useState({});
   const [didMount, setDidMount] = useState(false);
   const [clicked, setClicked] = useState(false);
+  const [nightView, setNightView] = useState(false);
 
   const getGroupInfo = (groupId) => {
     groupData.getSingleGroup(groupId).then((res) => {
@@ -154,19 +155,21 @@ const GroupDetails = (props) => {
       <img className="w-50 mt-5 mb-4" src={groupInfo.image} alt={groupInfo.name} />
     </div>
     </div>
-    <div className="d-flex col-wrap">
-      <div className="d-flex col-wrap">
-      <div className="group-active-users">
-        <h4>Active Members</h4>
-        {showActiveUsers()}
+    <div className="ml-5 d-flex justify-content-around">
+      <Button onClick={() => setNightView(true)}>Game Nights</Button>
+      <Button onClick={() => setNightView(false)}>Group Members</Button>
       </div>
+    <div className="d-flex col-wrap">
+    <div className="group-card-container">
+    {!nightView
+      ? <div className="group-members"><div className="group-active-users"><h4>Active Members</h4>
+        {showActiveUsers()}
+        </div>
       {currentGroupUser?.admin === true && <div className="group-inactive-users">
         <h4>Inactive Members</h4>
         {showInactiveUsers()}
-      </div>}
-      </div>
-    <div className="group-card-container">
-    {showGameNights()}
+      </div>}</div>
+      : currentGroupUser?.isActive === true && showGameNights()}
     </div>
     </div>
   </div>

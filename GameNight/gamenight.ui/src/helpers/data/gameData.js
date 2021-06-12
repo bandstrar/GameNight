@@ -9,4 +9,10 @@ const getbyGroupId = (groupId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getbyGroupId };
+const getByUserId = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${gameUrl}/user/${userId}`).then((response) => {
+    resolve(response.data);
+  }).catch((error) => reject(error));
+});
+
+export default { getbyGroupId, getByUserId };
