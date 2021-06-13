@@ -46,7 +46,7 @@ const GroupForm = (props) => {
       });
     } else {
       const groupInformation = {
-        id: group.group?.id,
+        id: group.group?.id || '',
         name: data.name,
         image: group.group?.image || 'https://i.imgur.com/HLoG7EM.jpg',
         description: data.description
