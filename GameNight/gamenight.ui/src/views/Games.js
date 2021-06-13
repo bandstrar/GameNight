@@ -4,6 +4,7 @@ import gameData from '../helpers/data/gameData';
 import UserGameCard from '../components/Cards/userGameCard';
 import GameFilterForm from '../components/Forms/GameFilterForm';
 import AppModal from '../components/AppModal';
+import GameForm from '../components/Forms/GameForm';
 
 const Games = (props) => {
   const userInfo = props;
@@ -59,7 +60,9 @@ const Games = (props) => {
       <h1>My Games</h1>
       </div>
       <div className="group-button-container">
-        <Button>Add a Game</Button>
+      <AppModal modalTitle='Add a Game' buttonLabel={'Add a Game'}>
+        <GameForm dbUserId={userInfo.user.id} onUpdate={() => getUserGames(userInfo.user.id)} />
+      </AppModal>
       </div>
       </div>
       <div>

@@ -21,4 +21,12 @@ const getSingleGame = (gameId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default { getbyGroupId, getByUserId, getSingleGame };
+const updateGame = (id, gameInfo) => axios
+  .put(`${gameUrl}/${id}`, gameInfo)
+  .catch((err) => console.warn(err));
+
+const createGame = (gameInfo) => axios.post(`${gameUrl}`, gameInfo).catch((err) => console.warn(err));
+
+export default {
+  getbyGroupId, getByUserId, getSingleGame, createGame, updateGame
+};

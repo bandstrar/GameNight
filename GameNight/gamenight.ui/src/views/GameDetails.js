@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
 import gameData from '../helpers/data/gameData';
+import AppModal from '../components/AppModal';
+import GameForm from '../components/Forms/GameForm';
 
 const GameDetails = (props) => {
   const gameProps = props;
@@ -50,7 +51,9 @@ const GameDetails = (props) => {
       <h3>Playing Time: {gameInfo.lengthInMinutes}</h3>
       <h3>Game Weight: {getWeight(gameInfo.weight)}</h3>
       <h3>Genre: {gameInfo.genre}</h3>
-      <Button className="mt-3">Update Game</Button>
+      <AppModal modalTitle='Update Game' buttonLabel={'Update Game'}>
+        <GameForm game={gameInfo} dbUserId={gameProps.dbUser.id} onUpdate={() => getGameInfo(gameInfo.id)} />
+      </AppModal>
       </div>
       <div className="ml-5">
         <img src={gameInfo.gameImage} alt={`${gameInfo.title} box art`} />
