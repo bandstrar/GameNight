@@ -27,6 +27,8 @@ const updateGame = (id, gameInfo) => axios
 
 const createGame = (gameInfo) => axios.post(`${gameUrl}`, gameInfo).catch((err) => console.warn(err));
 
+const deleteGame = (gameId) => axios.delete(`${gameUrl}/${gameId}`).catch((err) => console.warn(err));
+
 export default {
-  getbyGroupId, getByUserId, getSingleGame, createGame, updateGame
+  getbyGroupId, getByUserId, getSingleGame, createGame, updateGame, deleteGame
 };

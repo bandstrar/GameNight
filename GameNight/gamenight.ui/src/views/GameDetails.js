@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from 'reactstrap';
 import gameData from '../helpers/data/gameData';
 import AppModal from '../components/AppModal';
 import GameForm from '../components/Forms/GameForm';
+import nightGameData from '../helpers/data/nightGameData';
+import voteData from '../helpers/data/nightGameVoteData';
 
 const GameDetails = (props) => {
   const gameProps = props;
@@ -24,6 +27,16 @@ const GameDetails = (props) => {
   if (!didMount) {
     return null;
   }
+
+  const confirmDelete = (gameId) => {
+    voteData.removeByGameId(gameId).then(() => {
+      nightGameData.removeByGameId(gameId).then(() => {
+        gameData.deleteGame(gameId).then(() => {
+          gameProps.history.goBack();
+        });
+      });
+    });
+  };
 
   const getWeight = (weight) => {
     switch (weight) {
@@ -51,9 +64,16 @@ const GameDetails = (props) => {
       <h3>Playing Time: {gameInfo.lengthInMinutes}</h3>
       <h3>Game Weight: {getWeight(gameInfo.weight)}</h3>
       <h3>Genre: {gameInfo.genre}</h3>
-      <AppModal modalTitle='Update Game' buttonLabel={'Update Game'}>
+      {gameInfo.userId === gameProps.dbUser.id
+      && <><AppModal modalTitle='Update Game' buttonLabel={'Update Game'}>
         <GameForm game={gameInfo} dbUserId={gameProps.dbUser.id} onUpdate={() => getGameInfo(gameInfo.id)} />
       </AppModal>
+      <AppModal modalTitle='Delete Game' buttonLabel={'Delete Game'}>
+        <div>
+        <h3>Are you sure you want to delete this game?</h3>
+        <Button className="btn-danger"onClick={() => confirmDelete(gameInfo.id)}>Delete</Button>
+        </div>
+        </AppModal></>}
       </div>
       <div className="ml-5">
         <img src={gameInfo.gameImage} alt={`${gameInfo.title} box art`} />

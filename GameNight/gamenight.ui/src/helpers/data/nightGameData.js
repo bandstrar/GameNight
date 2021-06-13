@@ -11,6 +11,8 @@ const getByNightId = (nightId) => new Promise((resolve, reject) => {
 
 const addGameToNight = (nightGameInfo) => axios.post(`${nightGameUrl}`, nightGameInfo).catch((err) => console.warn(err));
 
+const removeByGameId = (gameId) => axios.delete(`${nightGameUrl}/game/${gameId}`).catch((err) => console.warn(err));
+
 export default {
-  getByNightId, addGameToNight
+  getByNightId, addGameToNight, removeByGameId
 };
