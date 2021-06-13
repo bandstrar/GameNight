@@ -11,6 +11,8 @@ import GroupGameCard from '../components/Cards/groupGameCard';
 import GameFilterForm from '../components/Forms/GameFilterForm';
 import AppModal from '../components/AppModal';
 import GameNightForm from '../components/Forms/GameNightForm';
+import DeleteForm from '../components/Forms/DeleteForm';
+import voteData from '../helpers/data/nightGameVoteData';
 
 const GameNight = (props) => {
   const gameNightProps = props;
@@ -83,6 +85,16 @@ const GameNight = (props) => {
     setFiltered(true);
   };
 
+  const confirmDelete = (nightId) => {
+    voteData.removeByNightId(nightId).then(() => {
+      nightGameData.removeByNightId(nightId).then(() => {
+        gameNightData.deleteGameNight(nightId).then(() => {
+          gameNightProps.history.goBack();
+        });
+      });
+    });
+  };
+
   useEffect(() => {
     const nightId = gameNightProps.match.params.id;
     getNightInfo(nightId);
@@ -105,9 +117,13 @@ const GameNight = (props) => {
       </div>
       <h3>{nightDate.toDateString()}</h3>
       <p>{nightInfo.description}</p>
-      {currentUser.admin === true && <AppModal modalTitle={'Update Game Night'} buttonLabel={'Update Game Night'}>
+      {currentUser.admin === true
+      && <><AppModal modalTitle={'Update Game Night'} buttonLabel={'Update Game Night'}>
       <GameNightForm night={nightInfo} groupId={groupInfo.id} onUpdate={() => getNightInfo(nightInfo.id)}/>
-      </AppModal>}
+      </AppModal>
+      <AppModal modalTitle='Delete Game Night' buttonLabel={'Delete Game Night'}>
+      <DeleteForm onDelete={() => confirmDelete(nightInfo.id)} />
+        </AppModal></>}
       </div>
       <div>
         <img className="w-50 mt-5 mb-4" src={groupInfo.image} alt={`${groupInfo.name}`} />

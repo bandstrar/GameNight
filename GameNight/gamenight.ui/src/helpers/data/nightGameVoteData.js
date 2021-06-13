@@ -15,6 +15,8 @@ const removeVote = (nightGameId, userId) => axios.delete(`${nightGameVoteUrl}/${
 
 const removeByGameId = (gameId) => axios.delete(`${nightGameVoteUrl}/game/${gameId}`).catch((err) => console.warn(err));
 
+const removeByNightId = (nightId) => axios.delete(`${nightGameVoteUrl}/gameNight/${nightId}`).catch((err) => console.warn(err));
+
 export default {
-  addVote, removeVote, getByNightGameId, removeByGameId
+  addVote, removeVote, getByNightGameId, removeByGameId, removeByNightId
 };

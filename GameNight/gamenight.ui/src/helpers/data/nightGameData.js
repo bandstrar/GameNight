@@ -13,6 +13,8 @@ const addGameToNight = (nightGameInfo) => axios.post(`${nightGameUrl}`, nightGam
 
 const removeByGameId = (gameId) => axios.delete(`${nightGameUrl}/game/${gameId}`).catch((err) => console.warn(err));
 
+const removeByNightId = (nightId) => axios.delete(`${nightGameUrl}/gameNight/${nightId}`).catch((err) => console.warn(err));
+
 export default {
-  getByNightId, addGameToNight, removeByGameId
+  getByNightId, addGameToNight, removeByGameId, removeByNightId
 };

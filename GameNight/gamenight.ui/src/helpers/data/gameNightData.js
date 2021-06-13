@@ -21,6 +21,8 @@ const updateGameNight = (id, nightInfo) => axios
 
 const createGameNight = (nightInfo) => axios.post(`${gameNightUrl}`, nightInfo).catch((err) => console.warn(err));
 
+const deleteGameNight = (nightId) => axios.delete(`${gameNightUrl}/${nightId}`).catch((err) => console.warn(err));
+
 export default {
-  getAllGroupGameNights, getSingleGameNight, createGameNight, updateGameNight
+  getAllGroupGameNights, getSingleGameNight, createGameNight, updateGameNight, deleteGameNight
 };

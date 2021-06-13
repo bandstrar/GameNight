@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
 import gameData from '../helpers/data/gameData';
 import AppModal from '../components/AppModal';
 import GameForm from '../components/Forms/GameForm';
 import nightGameData from '../helpers/data/nightGameData';
 import voteData from '../helpers/data/nightGameVoteData';
+import DeleteForm from '../components/Forms/DeleteForm';
 
 const GameDetails = (props) => {
   const gameProps = props;
@@ -69,10 +69,7 @@ const GameDetails = (props) => {
         <GameForm game={gameInfo} dbUserId={gameProps.dbUser.id} onUpdate={() => getGameInfo(gameInfo.id)} />
       </AppModal>
       <AppModal modalTitle='Delete Game' buttonLabel={'Delete Game'}>
-        <div>
-        <h3>Are you sure you want to delete this game?</h3>
-        <Button className="btn-danger"onClick={() => confirmDelete(gameInfo.id)}>Delete</Button>
-        </div>
+        <DeleteForm onDelete={() => confirmDelete(gameInfo.id)} />
         </AppModal></>}
       </div>
       <div className="ml-5">
