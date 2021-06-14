@@ -93,5 +93,13 @@ namespace GameNight.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("group/{id}")]
+        public IActionResult DeleteByGroupId(int id)
+        {
+            _repo.RemoveByGroupId(id);
+
+            return Ok();
+        }
     }
 }

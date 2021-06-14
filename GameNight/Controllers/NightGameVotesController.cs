@@ -64,5 +64,13 @@ namespace GameNight.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("group/{id}")]
+        public IActionResult RemoveAllGroupVotes(int id)
+        {
+            _repo.RemoveByGroup(id);
+
+            return Ok();
+        }
     }
 }

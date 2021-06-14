@@ -15,6 +15,8 @@ const removeByGameId = (gameId) => axios.delete(`${nightGameUrl}/game/${gameId}`
 
 const removeByNightId = (nightId) => axios.delete(`${nightGameUrl}/gameNight/${nightId}`).catch((err) => console.warn(err));
 
+const removeByGroupId = (groupId) => axios.delete(`${nightGameUrl}/group/${groupId}`).catch((err) => console.warn(err));
+
 export default {
-  getByNightId, addGameToNight, removeByGameId, removeByNightId
+  getByNightId, addGameToNight, removeByGameId, removeByNightId, removeByGroupId
 };
