@@ -58,8 +58,9 @@ const GameNight = (props) => {
   );
 
   const addGameToNight = (gameInfo) => {
-    nightGameData.addGameToNight(gameInfo);
-    getNightInfo(nightInfo.id);
+    nightGameData.addGameToNight(gameInfo).then(() => {
+      getNightInfo(nightInfo.id);
+    });
   };
 
   const showGroupGames = () => (

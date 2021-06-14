@@ -23,7 +23,7 @@ const Routes = (props) => {
   const userInfo = props;
   return (
   <Switch>
-    <Route exact path='/' component={() => <Home />} />
+    <Route exact path='/' component={() => <Home dbUser={userInfo.realUser} />} />
     <PrivateRoute exact path='/my-groups' component={Groups} dbUser={userInfo.realUser} />
     <PrivateRoute exact path='/my-games' component={Games} dbUser={userInfo.realUser} />
     <Route exact path='/search/:term' component={(groupProps) => <SearchResults dbUser={userInfo.realUser} {...groupProps}/>} />
