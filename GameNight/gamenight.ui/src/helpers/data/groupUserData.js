@@ -29,6 +29,8 @@ const makeGroupUserInactive = (userId) => axios.put(`${groupUserUrl}/${userId}/m
 
 const approveGroupUser = (userId) => axios.put(`${groupUserUrl}/${userId}/approve`).catch((err) => console.warn(err));
 
+const deleteByGroupId = (groupId) => axios.delete(`${groupUserUrl}/group/${groupId}`).catch((err) => console.warn(err));
+
 export default {
-  getActiveGroupUsers, getInactiveGroupUsers, getCurrentGroupUser, createGroupUser, makeGroupUserInactive, approveGroupUser, deleteGroupUser
+  getActiveGroupUsers, getInactiveGroupUsers, getCurrentGroupUser, createGroupUser, makeGroupUserInactive, approveGroupUser, deleteGroupUser, deleteByGroupId
 };

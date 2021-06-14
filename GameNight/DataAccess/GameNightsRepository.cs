@@ -112,5 +112,16 @@ namespace GameNight.DataAccess
 
             db.Execute(sql, new { id });
         }
+
+        public void RemoveByGroupId(int id)
+        {
+            var sql = @"Delete 
+                        from GameNight 
+                        Where groupId = @id";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            db.Execute(sql, new { id });
+        }
     }
 }

@@ -3,10 +3,13 @@ import { Button } from 'reactstrap';
 import groupData from '../helpers/data/groupData';
 import gameNightData from '../helpers/data/gameNightData';
 import groupUserData from '../helpers/data/groupUserData';
+import voteData from '../helpers/data/nightGameVoteData';
+import nightGameData from '../helpers/data/nightGameData';
 import AppModal from '../components/AppModal';
 import GameNightForm from '../components/Forms/GameNightForm';
 import GameNightCard from '../components/Cards/gameNightCard';
 import GroupForm from '../components/Forms/GroupForm';
+import DeleteForm from '../components/Forms/DeleteForm';
 
 const GroupDetails = (props) => {
   const groupDetailsProps = props;
@@ -123,6 +126,20 @@ const GroupDetails = (props) => {
     deactivateButton();
   };
 
+  const confirmDelete = (groupId) => {
+    voteData.removeByGroupId(groupId).then(() => {
+      nightGameData.removeByGroupId(groupId).then(() => {
+        gameNightData.deleteByGroupId(groupId).then(() => {
+          groupUserData.deleteByGroupId(groupId).then(() => {
+            groupData.deleteGroup(groupId).then(() => {
+              groupDetailsProps.history.goBack();
+            });
+          });
+        });
+      });
+    });
+  };
+
   if (!didMount) {
     return null;
   }
@@ -145,6 +162,9 @@ const GroupDetails = (props) => {
       </AppModal>
       <AppModal modalTitle={'Update Group'} buttonLabel={'Update Group'}>
       <GroupForm group={groupInfo} dbUserId={currentGroupUser.userId} onUpdate={() => getGroupInfo(groupInfo.id)}/>
+      </AppModal>
+      <AppModal modalTitle={'Delete Group'} buttonLabel={'Delete Group'}>
+        <DeleteForm onDelete={() => confirmDelete(groupInfo.id)}/>
       </AppModal>
       </div>}
     {!currentGroupUser

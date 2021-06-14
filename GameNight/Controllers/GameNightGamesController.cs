@@ -77,5 +77,29 @@ namespace GameNight.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("game/{id}")]
+        public IActionResult DeleteByGameId(int id)
+        {
+            _repo.RemoveByGameId(id);
+
+            return Ok();
+        }
+
+        [HttpDelete("gameNight/{id}")]
+        public IActionResult DeleteByGameNightId(int id)
+        {
+            _repo.RemoveByGameNightId(id);
+
+            return Ok();
+        }
+
+        [HttpDelete("group/{id}")]
+        public IActionResult DeleteByGroupId(int id)
+        {
+            _repo.RemoveByGroupId(id);
+
+            return Ok();
+        }
     }
 }

@@ -56,5 +56,48 @@ namespace GameNight.DataAccess
 
             db.Execute(sql, new { nightGameId, userId });
         }
+
+        public void RemoveByGame(int id)
+        {
+            var sql = @"Delete ngv
+                        from NightGameVote ngv
+	                        join GameNightGame gng
+		                        on gng.id = ngv.NightGameId
+	                        join BoardGame bg
+		                        on bg.id = gng.GameId
+                        WHERE bg.id = @id";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            db.Execute(sql, new { id });
+        }
+
+        public void RemoveByGameNight(int id)
+        {
+            var sql = @"Delete ngv
+                        from NightGameVote ngv
+	                        join GameNightGame gng
+		                        on gng.id = ngv.NightGameId
+                        WHERE gng.gameNightId = @id";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            db.Execute(sql, new { id });
+        }
+
+        public void RemoveByGroup(int id)
+        {
+            var sql = @"Delete ngv
+                        from NightGameVote ngv
+	                        join GameNightGame gng
+		                        on gng.id = ngv.NightGameId
+                            join GameNight gn
+                                on gn.id = gng.gameNightId
+                        WHERE gn.groupId = @id";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            db.Execute(sql, new { id });
+        }
     }
 }

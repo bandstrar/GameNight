@@ -27,6 +27,8 @@ const updateGroup = (id, groupInfo) => axios
 
 const createNewGroup = (groupInfo) => axios.post(`${groupUrl}`, groupInfo).catch((err) => console.warn(err));
 
+const deleteGroup = (groupId) => axios.delete(`${groupUrl}/${groupId}`).catch((err) => console.warn(err));
+
 export default {
-  getUserGroups, getSingleGroup, createNewGroup, updateGroup, getSearchedGroups
+  getUserGroups, getSingleGroup, createNewGroup, updateGroup, getSearchedGroups, deleteGroup
 };
