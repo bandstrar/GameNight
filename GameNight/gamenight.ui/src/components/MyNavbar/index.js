@@ -33,9 +33,12 @@ const MyNavbar = (props) => {
               </div>
               <div>
                 <Nav>
-            {dbUser.realUser && <NavItem>
+            {dbUser.realUser && <><NavItem>
               <h3>Welcome {dbUser.realUser.firstName}!</h3>
-            </NavItem>}
+            </NavItem>
+            <NavItem>
+            <img className="navbar-photo" src={dbUser.realUser.userImage} alt={`${dbUser.realUser.firstName} ${dbUser.realUser.lastName}`} />
+          </NavItem></>}
             </Nav>
             <Auth />
             </div>

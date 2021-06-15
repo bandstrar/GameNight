@@ -19,7 +19,7 @@ const Home = (props) => {
           night!</p>
 
           <p>Then you can start planning your next game night with your group! Have fun!</p></>
-          : <><h>Log in to get started!</h></>
+          : <><h2>Log in to get started!</h2></>
         }
           </div>
     </div>
