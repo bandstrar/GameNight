@@ -73,7 +73,7 @@ const GameDetails = (props) => {
         </AppModal></>}
       </div>
       <div className="ml-5">
-        <img src={gameInfo.gameImage} alt={`${gameInfo.title} box art`} />
+        <img className="game-details-img" src={gameInfo.gameImage} alt={`${gameInfo.title} box art`} />
       </div>
     </div>
     </div>
