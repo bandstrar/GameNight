@@ -146,17 +146,17 @@ const GroupDetails = (props) => {
 
   return (
     <div>
-    <div className="d-flex col-wrap justify-content-end">
-      <div className="single-group-header mt-5">
+    <div className="d-flex col-wrap">
+      <div className="single-group-header">
         <div>
     <h1>{groupInfo.name}</h1>
     </div>
-    <p>{groupInfo.description}</p>
+    <p className="mt-5">{groupInfo.description}</p>
     {(currentGroupUser?.admin === false && currentGroupUser?.isActive === true)
-    && <>{clicked ? (<Button disabled>You left the group!</Button>)
-      : <Button onClick={() => leaveGroup(currentGroupUser.id, groupDetailsProps.match.params.id)}>Leave Group</Button>}</>}
+    && <div className="mt-5">{clicked ? (<Button disabled>You left the group!</Button>)
+      : <Button onClick={() => leaveGroup(currentGroupUser.id, groupDetailsProps.match.params.id)}>Leave Group</Button>}</div>}
     {currentGroupUser?.admin === true
-    && <div>
+    && <div className="mt-5">
       <AppModal modalTitle={'Create a Game Night'} buttonLabel={'Create a Game Night'}>
       <GameNightForm groupId={groupInfo.id} onUpdate={() => getGameNights(groupInfo.id)}/>
       </AppModal>
@@ -172,7 +172,7 @@ const GroupDetails = (props) => {
       : <Button onClick={() => requestToJoin()}>Request to Join This Group</Button>}</>}
     </div>
     <div>
-      <img className="w-50 mt-5 mb-4" src={groupInfo.image} alt={groupInfo.name} />
+      <img className="header-image" src={groupInfo.image} alt={groupInfo.name} />
     </div>
     </div>
     <div className="ml-5 d-flex justify-content-around">

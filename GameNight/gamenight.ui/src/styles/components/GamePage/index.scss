@@ -1,6 +1,7 @@
 .game-detail-body {
   justify-content: center;
   padding-top: 20vh;
+  color: $tertiaryColor;
 }
 
 .game-detail-body h3 {
@@ -9,4 +10,12 @@
 
 .game-details-img {
   max-width: 30vw;
+}
+
+.header-image {
+  max-width: 33vw;
+  max-height: 33vw;
+  margin-top: 3vw;
+  margin-right: 5vw;
+  margin-bottom: 2em;
 }

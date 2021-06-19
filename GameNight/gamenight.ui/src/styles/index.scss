@@ -3,7 +3,7 @@
 @import 'variables';
 @import './components/';
 @import './components/index.scss';
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cantata+One&family=Roboto&display=swap');
 
 body {
   background-image: 
@@ -13,4 +13,12 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+}
+
+h1 {
+  font-family: 'Cantata One', serif;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
 }

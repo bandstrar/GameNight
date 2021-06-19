@@ -6,12 +6,14 @@
   height: 100%;
   position: fixed;
   width: 20%;
-  background-color: $tertiaryColor;
+  background-color: $secondaryColor;
   max-width: 200px;
+  font-family: 'Cantata One', serif;
+  color: $tertiaryColor
 }
 
 .navbar-links {
-  color: black;
+  color: $tertiaryColor;
 }
 
 .navbar-photo {

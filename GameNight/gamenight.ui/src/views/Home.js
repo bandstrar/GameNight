@@ -6,9 +6,9 @@ const Home = (props) => {
   return (
     <div className="home-view">
       <div className="home-container">
-        <h1>Welcome to GameNight!</h1>
+        <h1 className="m-2">Welcome to GameNight!</h1>
         {homeProps.dbUser
-          ? <><p>The goal of GameNight is to make your next game night easier by choosing the
+          ? <div className="m-3"><p>The goal of GameNight is to make your next game night easier by choosing the
           board games your group will play ahead of time. This means more time for gaming!</p>
 
           <p>First you’ll need to create a group and invite your friends, or join a group that
@@ -18,7 +18,7 @@ const Home = (props) => {
           collection. This makes it easy to find and choose games to play on your next game
           night!</p>
 
-          <p>Then you can start planning your next game night with your group! Have fun!</p></>
+          <p>Then you can start planning your next game night with your group! Have fun!</p></div>
           : <><h2>Log in to get started!</h2></>
         }
           </div>

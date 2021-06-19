@@ -111,23 +111,23 @@ const GameNight = (props) => {
 
   return (
     <div>
-      <div className="d-flex col-wrap justify-content-end">
-        <div className="single-group-header mt-5">
+      <div className="d-flex col-wrap">
+        <div className="single-group-header">
           <div>
       <h1>{nightInfo.title}</h1>
       </div>
-      <h3>{nightDate.toDateString()}</h3>
-      <p>{nightInfo.description}</p>
+      <h3 className="mt-5">{nightDate.toDateString()}</h3>
+      <p className="mt-5">{nightInfo.description}</p>
       {currentUser.admin === true
-      && <><AppModal modalTitle={'Update Game Night'} buttonLabel={'Update Game Night'}>
+      && <div className="mt-5"><AppModal modalTitle={'Update Game Night'} buttonLabel={'Update Game Night'}>
       <GameNightForm night={nightInfo} groupId={groupInfo.id} onUpdate={() => getNightInfo(nightInfo.id)}/>
       </AppModal>
       <AppModal modalTitle='Delete Game Night' buttonLabel={'Delete Game Night'}>
       <DeleteForm onDelete={() => confirmDelete(nightInfo.id)} />
-        </AppModal></>}
+        </AppModal></div>}
       </div>
       <div>
-        <img className="w-50 mt-5 mb-4" src={groupInfo.image} alt={`${groupInfo.name}`} />
+        <img className="header-image" src={groupInfo.image} alt={`${groupInfo.name}`} />
       </div>
       </div>
       <div className="ml-5 d-flex justify-content-around">

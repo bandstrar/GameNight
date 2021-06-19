@@ -26,8 +26,8 @@ const Groups = (props) => {
 
   return (
     <div>
-      <div className="d-flex col-wrap justify-content-end">
-        <div className="mt-5">
+      <div className="d-flex col-wrap">
+        <div className="single-group-header">
           <div>
       <h1>My Groups</h1>
       </div>
@@ -36,7 +36,7 @@ const Groups = (props) => {
       </div>
       </div>
       <div>
-        <img className="w-50 mt-5 mb-4" src={'https://i.imgur.com/HLoG7EM.jpg'} alt={'A group of young adults playing a board game.'} />
+        <img className="header-image" src={'https://i.imgur.com/HLoG7EM.jpg'} alt={'A group of young adults playing a board game.'} />
       </div>
       </div>
       <div className="group-card-container">

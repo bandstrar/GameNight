@@ -29,12 +29,12 @@ const SearchResults = (props) => {
 
   return (
     <div>
-      <div className="d-flex col-wrap justify-content-end">
-        <div className="search-results">
+      <div className="d-flex col-wrap">
+        <div className="single-group-header">
         {results.length === 0 ? <h1>No groups found</h1> : <h1>Group Search Results</h1>}
       </div>
       <div>
-        <img className="w-50 mt-5 mb-4" src={'https://i.imgur.com/HLoG7EM.jpg'} alt={'A group of young adults playing a board game.'} />
+        <img className="header-image" src={'https://i.imgur.com/HLoG7EM.jpg'} alt={'A group of young adults playing a board game.'} />
       </div>
       </div>
       <div className="group-card-container">

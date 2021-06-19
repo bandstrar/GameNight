@@ -54,8 +54,8 @@ const Games = (props) => {
 
   return (
     <div>
-      <div className="d-flex col-wrap justify-content-end">
-        <div className="single-group-header mt-5">
+      <div className="d-flex col-wrap">
+        <div className="single-group-header">
           <div>
       <h1>My Games</h1>
       </div>
@@ -66,7 +66,7 @@ const Games = (props) => {
       </div>
       </div>
       <div>
-        <img className="w-50 mt-5 mb-4" src={'https://i.imgur.com/W70zX0K.jpg'} alt={'A collection of board games.'} />
+        <img className="header-image" src={'https://i.imgur.com/W70zX0K.jpg'} alt={'A collection of board games.'} />
       </div>
       </div>
       <AppModal modalTitle='Filter Games' buttonLabel={'Filter Games'}><GameFilterForm filterGames={filterGames} /></AppModal>
