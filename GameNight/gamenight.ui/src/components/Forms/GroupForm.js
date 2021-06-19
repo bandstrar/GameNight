@@ -76,7 +76,7 @@ const GroupForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="app-form" onSubmit={handleSubmit(onSubmit)}>
       <h5>Group Name</h5>
       <input defaultValue={group.group?.name || ''}{...register('name', { required: true })} />
       {errors.name && 'Name is required'}
@@ -85,7 +85,7 @@ const GroupForm = (props) => {
       <h5>Group Description</h5>
       <input defaultValue={group.group?.description || ''}{...register('description', { required: true })} />
       {errors.description && 'Description is required'}
-      <input type='submit' />
+      <input className="ml-2" type='submit' />
 
     </form>
   );

@@ -30,7 +30,7 @@ const GameNightForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="app-form" onSubmit={handleSubmit(onSubmit)}>
     <h5>Title</h5>
     <input defaultValue={gameNight.night?.title || ''}{...register('title', { required: true })} />
     {errors.title && 'Title is required'}
@@ -39,7 +39,7 @@ const GameNightForm = (props) => {
     <h5>Description / More Info</h5>
     <input defaultValue={gameNight.night?.description || ''}{...register('description', { required: true })} />
     {errors.description && 'Description is required'}
-    <input type='submit' />
+    <input className="ml-2" type='submit' />
   </form>
   );
 };
