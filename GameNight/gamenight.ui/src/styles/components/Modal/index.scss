@@ -1,0 +1,17 @@
+.modal-body {
+  background-color: $secondaryColor;
+  overflow: hidden;
+  border: solid $favColor 2px;
+  box-shadow: 0 5px 10px rgba( #000, .8 );
+  color: $tertiaryColor;
+}
+
+.modal-header {
+  background-color: $fifthColor;
+  color: $favColor;
+  text-align: center;
+}
+
+.app-form h5 {
+margin-top: 10px;
+}

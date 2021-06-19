@@ -11,7 +11,7 @@ const GameFilterForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="app-form" onSubmit={handleSubmit(onSubmit)}>
     <h5>Title</h5>
     <input defaultValue={''}{...register('title')} />
     <h5>Minimum Players</h5>
@@ -34,7 +34,7 @@ const GameFilterForm = (props) => {
     {errors.lengthInMinutes && 'Outside range'}
     <h5>Genre</h5>
     <input defaultValue={''}{...register('genre')} />
-    <input type='submit' />
+    <input className="ml-2" type='submit' />
   </form>
   );
 };

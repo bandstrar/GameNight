@@ -12,18 +12,22 @@
 
 .group-active-users {
   width: 15vw;
-  margin-right: 15vw;
   margin-top: 3vh;
 }
 
 .group-inactive-users {
   width: 15vw;
-  margin-right: 15vw;
   margin-top: 3vh;
 }
 
 .group-members {
-  margin: auto;
+  display: flex;
+  margin-top: 5em;
+  margin-right: 15vw;
+  color: $tertiaryColor;
+  background-color: $secondaryColor;
+  border: solid $favColor 2px;
+  box-shadow: 0 5px 10px rgba( #000, .8 );
 }
 
 .search-results {

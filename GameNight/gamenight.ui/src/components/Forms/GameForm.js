@@ -83,7 +83,7 @@ const GameForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="app-form" onSubmit={handleSubmit(onSubmit)}>
       <h5>Game Title</h5>
       <input defaultValue={formProps.game?.title || ''}{...register('title', { required: true })} />
       {errors.title && 'Title is required'}
@@ -111,7 +111,7 @@ const GameForm = (props) => {
       <h5>Game Genre</h5>
       <input defaultValue={formProps.game?.genre || ''}{...register('genre', { required: true })} />
       {errors.genre && 'Genre is required'}
-      <input type='submit' />
+      <input className="ml-2" type='submit' />
     </form>
   );
 };
