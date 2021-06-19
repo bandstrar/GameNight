@@ -18,7 +18,7 @@ const SearchInput = (props) => {
 
   return (
       <form onSubmit={handleSubmit}>
-      <input type='text' name='text' className='search-input' value={text} placeholder='Search...' onChange={handleChange} />
+      <input type='text' name='text' className='search-input w-75' value={text} placeholder='Search...' onChange={handleChange} />
     </form>
   );
 };

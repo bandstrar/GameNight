@@ -5,8 +5,12 @@
   margin-left: 30vw;
   padding-top: 10vw;
   width: 40vw;
+  color: $tertiaryColor
 }
 
 .home-container {
-  background-color: white;
+  background-color: $secondaryColor;
+  overflow: hidden;
+  border: solid $favColor 2px;
+  box-shadow: 0 5px 10px rgba( #000, .8 );
 }

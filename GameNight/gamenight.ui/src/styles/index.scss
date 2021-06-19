@@ -3,7 +3,22 @@
 @import 'variables';
 @import './components/';
 @import './components/index.scss';
+@import url('https://fonts.googleapis.com/css2?family=Cantata+One&family=Roboto&display=swap');
 
 body {
+  background-image: 
+  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+  url('https://i.imgur.com/70hKjgk.jpg');
   background-color: $favColor;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-family: 'Cantata One', serif;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
 }

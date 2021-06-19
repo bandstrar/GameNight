@@ -1,13 +1,13 @@
 .group-card-img {
-  width: 20vw;
-  height: 15vw;
-  object-fit: cover;
+  width: 275px;
+  height: 225px;
+  object-fit: contain;
 }
 
 .game-card-img {
-  max-width: 15vw;
-  max-height: 20vw;
-  object-fit: cover;
+  max-width: 275px;
+  max-height: 225px;
+  object-fit: contain;
 }
 
 .group-card-container {
@@ -20,7 +20,7 @@
 }
 
 .card-container {
-  width: 30%;
+  width: 20%;
   display: flex;
   margin: 3% 3% 3% 0;
 }
