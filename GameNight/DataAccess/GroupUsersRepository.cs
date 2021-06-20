@@ -130,6 +130,29 @@ namespace GameNight.DataAccess
             return foundGroupUser;
         }
 
+        public IEnumerable<GroupUser> GetAdminByGroupId(int id)
+        {
+            var sql = @"select * from GroupUser gu
+	                        join SiteUser su
+		                        on su.id = gu.UserId
+	                        join GameGroup gg
+		                        on gg.Id = gu.GroupId
+                        where gg.id = @id
+                        and gu.admin = 1";
+
+            using var db = new SqlConnection(ConnectionString);
+
+            var foundGroupUser = db.Query<GroupUser, User, GameGroup, GroupUser>(sql,
+                (groupUser, user, gameGroup) =>
+                {
+                    groupUser.User = user;
+                    groupUser.GameGroup = gameGroup;
+
+                    return groupUser;
+                }, new { id }, splitOn: "Id");
+            return foundGroupUser;
+        }
+
         public void Add(GroupUser groupUser)
         {
             var sql = @"INSERT INTO [GroupUser] ([UserId],[GroupId],[Admin],[IsActive])
@@ -163,7 +186,8 @@ namespace GameNight.DataAccess
             using var db = new SqlConnection(ConnectionString);
 
             var sql = @"update GroupUser
-                        set IsActive = 0
+                        set IsActive = 0,
+                            Admin = 0
                         where id = @id";
 
             db.Execute(sql, new { id });
@@ -175,6 +199,29 @@ namespace GameNight.DataAccess
 
             var sql = @"update GroupUser
                         set IsActive = 1
+                        where id = @id";
+
+            db.Execute(sql, new { id });
+        }
+
+        public void MakeAdmin(int id)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"update GroupUser
+                        set Admin = 1,
+                        IsActive = 1
+                        where id = @id";
+
+            db.Execute(sql, new { id });
+        }
+
+        public void RemoveAdmin(int id)
+        {
+            using var db = new SqlConnection(ConnectionString);
+
+            var sql = @"update GroupUser
+                        set Admin = 0
                         where id = @id";
 
             db.Execute(sql, new { id });

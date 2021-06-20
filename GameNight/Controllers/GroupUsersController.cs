@@ -67,6 +67,19 @@ namespace GameNight.Controllers
             return Ok(user);
         }
 
+        [HttpGet("group/{id}/admin")]
+        public IActionResult GetAdminGroupUsers(int id)
+        {
+            var user = _repo.GetAdminByGroupId(id);
+
+            if (user == null)
+            {
+                return NotFound("This group does not have any admins. That's not good!");
+            }
+
+            return Ok(user);
+        }
+
         [HttpGet("group/{id}/inactive")]
         public IActionResult GetInactiveGroupUsers(int id)
         {
@@ -100,6 +113,22 @@ namespace GameNight.Controllers
         public IActionResult DeactivateGroupUser(int id)
         {
             _repo.MakeInactive(id);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}/makeAdmin")]
+        public IActionResult AddAdminGroupUser(int id)
+        {
+            _repo.MakeAdmin(id);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}/removeAdmin")]
+        public IActionResult RemoveAdminGroupUser(int id)
+        {
+            _repo.RemoveAdmin(id);
 
             return NoContent();
         }
