@@ -92,7 +92,8 @@ namespace GameNight.DataAccess
 	                        join GameGroup gg
 		                        on gg.Id = gu.GroupId
                         where gg.id = @id
-                        and gu.isActive = 1";
+                        and gu.isActive = 1
+                        and gu.admin = 0";
 
             using var db = new SqlConnection(ConnectionString);
 
