@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import groupData from '../helpers/data/groupData';
 import gameNightData from '../helpers/data/gameNightData';
 import groupUserData from '../helpers/data/groupUserData';
@@ -10,6 +13,8 @@ import GameNightForm from '../components/Forms/GameNightForm';
 import GameNightCard from '../components/Cards/gameNightCard';
 import GroupForm from '../components/Forms/GroupForm';
 import DeleteForm from '../components/Forms/DeleteForm';
+import TabPanel from '../components/TabPanel';
+import a11yProps from '../helpers/a11yProps';
 
 const GroupDetails = (props) => {
   const groupDetailsProps = props;
@@ -21,7 +26,7 @@ const GroupDetails = (props) => {
   const [currentGroupUser, setCurrentGroupUser] = useState({});
   const [didMount, setDidMount] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const [nightView, setNightView] = useState(false);
+  const [value, setValue] = useState(0);
 
   const getGroupInfo = (groupId) => {
     groupData.getSingleGroup(groupId).then((res) => {
@@ -49,7 +54,9 @@ const GroupDetails = (props) => {
 
   const getCurrentUser = (userId, groupId) => {
     groupUserData.getCurrentGroupUser(userId, groupId).then((res) => {
-      setCurrentGroupUser(res);
+      if (res) {
+        setCurrentGroupUser(res);
+      }
     });
   };
 
@@ -140,6 +147,10 @@ const GroupDetails = (props) => {
     });
   };
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   if (!didMount) {
     return null;
   }
@@ -175,24 +186,29 @@ const GroupDetails = (props) => {
       <img className="header-image" src={groupInfo.image} alt={groupInfo.name} />
     </div>
     </div>
-    <div className="ml-5 d-flex justify-content-around">
-      <Button onClick={() => setNightView(true)}>Game Nights</Button>
-      <Button onClick={() => setNightView(false)}>Group Members</Button>
-      </div>
-    <div className="d-flex col-wrap">
-    <div className="group-card-container">
-    {!nightView
-      ? <div className="group-members"><div className="group-active-users"><h4>Active Members</h4>
+    <AppBar className="tabs-bar" position="static">
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
+          <Tab label="Group Members" {...a11yProps(0)} />
+          <Tab label="Game Nights" {...a11yProps(1)} />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+      <div className="group-card-container">
+      <div className="group-members"><div className="group-active-users"><h4>Active Members</h4>
         {showActiveUsers()}
         </div>
       {currentGroupUser?.admin === true && <div className="group-inactive-users">
         <h4>Inactive Members</h4>
         {showInactiveUsers()}
       </div>}</div>
-      : currentGroupUser?.isActive === true && showGameNights()}
-    </div>
-    </div>
-  </div>
+      </div>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+      <div className="group-card-container">
+      {currentGroupUser?.isActive === true && showGameNights()}
+      </div>
+      </TabPanel>
+      </div>
   );
 };
 
