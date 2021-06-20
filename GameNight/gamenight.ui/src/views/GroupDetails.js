@@ -23,6 +23,7 @@ const GroupDetails = (props) => {
   const [gameNights, setGameNights] = useState([]);
   const [activeUsers, setActiveUsers] = useState([]);
   const [inactiveUsers, setInactiveUsers] = useState([]);
+  const [adminUsers, setAdminUsers] = useState([]);
   const [currentGroupUser, setCurrentGroupUser] = useState({});
   const [didMount, setDidMount] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -46,6 +47,12 @@ const GroupDetails = (props) => {
     });
   };
 
+  const getAdminUsers = (groupId) => {
+    groupUserData.getAdminGroupUsers(groupId).then((res) => {
+      setAdminUsers(res);
+    });
+  };
+
   const getInactiveUsers = (groupId) => {
     groupUserData.getInactiveGroupUsers(groupId).then((res) => {
       setInactiveUsers(res);
@@ -64,6 +71,7 @@ const GroupDetails = (props) => {
     groupUserData.makeGroupUserInactive(userId).then(() => {
       getActiveUsers(groupId);
       getInactiveUsers(groupId);
+      getAdminUsers(groupId);
     });
   };
 
@@ -71,6 +79,23 @@ const GroupDetails = (props) => {
     groupUserData.approveGroupUser(userId).then(() => {
       getActiveUsers(groupId);
       getInactiveUsers(groupId);
+      getAdminUsers(groupId);
+    });
+  };
+
+  const makeUserAdmin = (userId, groupId) => {
+    groupUserData.makeGroupUserAdmin(userId).then(() => {
+      getActiveUsers(groupId);
+      getInactiveUsers(groupId);
+      getAdminUsers(groupId);
+    });
+  };
+
+  const removeUserAdmin = (userId, groupId) => {
+    groupUserData.unAdminGroupUser(userId).then(() => {
+      getActiveUsers(groupId);
+      getInactiveUsers(groupId);
+      getAdminUsers(groupId);
     });
   };
 
@@ -83,6 +108,7 @@ const GroupDetails = (props) => {
     groupUserData.deleteGroupUser(userId).then(() => {
       getActiveUsers(groupId);
       getInactiveUsers(groupId);
+      getAdminUsers(groupId);
       deactivateButton();
     });
   };
@@ -92,6 +118,7 @@ const GroupDetails = (props) => {
     getGroupInfo(groupId);
     getGameNights(groupId);
     getActiveUsers(groupId);
+    getAdminUsers(groupId);
     getInactiveUsers(groupId);
     getCurrentUser(groupDetailsProps.dbUser.id, groupId);
     setDidMount(true);
@@ -108,7 +135,18 @@ const GroupDetails = (props) => {
     activeUsers.map((user) => (
       <div className="d-flex col-wrap justify-content-center" key={user.id}>
       <p className="mt-2">{user.user.firstName} {user.user.lastName}</p>
-      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => deactivateUser(user.id, groupDetailsProps.match.params.id)}><i className="deactivate-button fas fa-times-circle"></i></Button>}
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => makeUserAdmin(user.id, groupDetailsProps.match.params.id)}>Make Admin<i className="approve-button fas fa-check-circle"></i></Button>}
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => deactivateUser(user.id, groupDetailsProps.match.params.id)}>Make Inactive<i className="deactivate-button fas fa-times-circle"></i></Button>}
+      </div>
+    ))
+  );
+
+  const showAdminUsers = () => (
+    adminUsers.map((user) => (
+      <div className="d-flex col-wrap justify-content-center" key={user.id}>
+      <p className="mt-2">{user.user.firstName} {user.user.lastName}</p>
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => removeUserAdmin(user.id, groupDetailsProps.match.params.id)}>Remove Admin<i className="deactivate-button fas fa-times-circle"></i></Button>}
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => deactivateUser(user.id, groupDetailsProps.match.params.id)}>Make Inactive<i className="deactivate-button fas fa-times-circle"></i></Button>}
       </div>
     ))
   );
@@ -117,7 +155,8 @@ const GroupDetails = (props) => {
     inactiveUsers.map((user) => (
       <div className="d-flex col-wrap justify-content-center" key={user.id}>
       <p className="mt-2">{user.user.firstName} {user.user.lastName}</p>
-      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => approveUser(user.id, groupDetailsProps.match.params.id)}><i className="approve-button fas fa-check-circle"></i></Button>}
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => makeUserAdmin(user.id, groupDetailsProps.match.params.id)}>Make Admin<i className="approve-button fas fa-check-circle"></i></Button>}
+      {currentGroupUser?.admin === true && <Button className="group-button" onClick={() => approveUser(user.id, groupDetailsProps.match.params.id)}>Make Active<i className="approve-button fas fa-check-circle"></i></Button>}
       </div>
     ))
   );
@@ -194,10 +233,13 @@ const GroupDetails = (props) => {
       </AppBar>
       <TabPanel value={value} index={0}>
       <div className="group-card-container">
-      <div className="group-members"><div className="group-active-users"><h4>Active Members</h4>
+      <div className="group-members"><div className="group-users"><h4>Group Admins</h4>
+        {showAdminUsers()}
+        </div>
+      <div className="group-users"><h4>Active Members</h4>
         {showActiveUsers()}
         </div>
-      {currentGroupUser?.admin === true && <div className="group-inactive-users">
+      {currentGroupUser?.admin === true && <div className="group-users">
         <h4>Inactive Members</h4>
         {showInactiveUsers()}
       </div>}</div>
