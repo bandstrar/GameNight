@@ -1,6 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import gameNightData from '../helpers/data/gameNightData';
 import groupData from '../helpers/data/groupData';
 import nightGameData from '../helpers/data/nightGameData';
@@ -13,6 +16,8 @@ import AppModal from '../components/AppModal';
 import GameNightForm from '../components/Forms/GameNightForm';
 import DeleteForm from '../components/Forms/DeleteForm';
 import voteData from '../helpers/data/nightGameVoteData';
+import TabPanel from '../components/TabPanel';
+import a11yProps from '../helpers/a11yProps';
 
 const GameNight = (props) => {
   const gameNightProps = props;
@@ -22,9 +27,9 @@ const GameNight = (props) => {
   const [groupGames, setGroupGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
   const [filtered, setFiltered] = useState(false);
-  const [nightView, setNightView] = useState(true);
   const [didMount, setDidMount] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [value, setValue] = useState(0);
 
   const getNightInfo = (nightId) => {
     gameNightData.getSingleGameNight(nightId).then((res) => {
@@ -103,6 +108,10 @@ const GameNight = (props) => {
     return () => setDidMount(false);
   }, []);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   if (!didMount) {
     return null;
   }
@@ -130,17 +139,25 @@ const GameNight = (props) => {
         <img className="header-image" src={groupInfo.image} alt={`${groupInfo.name}`} />
       </div>
       </div>
-      <div className="ml-5 d-flex justify-content-around">
-      <Button onClick={() => setNightView(true)}>Game Night Games</Button>
-      <Button onClick={() => setNightView(false)}>Find a Game to Add</Button>
-      </div>
-      {!nightView && <AppModal modalTitle='Filter Games' buttonLabel={'Filter Games'}><GameFilterForm filterGames={filterGames} /></AppModal>}
-      {!nightView && <Button onClick={() => setFiltered(false)}>Clear Filter</Button>}
+      <AppBar className="tabs-bar" position="static">
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
+          <Tab label="Game Night Games" {...a11yProps(0)} />
+          <Tab label="Find a Game to Add" {...a11yProps(1)} />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
       <div className="group-card-container">
-      {nightView ? showNightGames()
-        : (filtered ? showFilteredGames() : showGroupGames())}
+      {showNightGames()}
       </div>
-    </div>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+      <AppModal modalTitle='Filter Games' buttonLabel={'Filter Games'}><GameFilterForm filterGames={filterGames} /></AppModal>
+      <Button onClick={() => setFiltered(false)}>Clear Filter</Button>
+      <div className="group-card-container">
+      {(filtered ? showFilteredGames() : showGroupGames())}
+      </div>
+      </TabPanel>
+      </div>
   );
 };
 
