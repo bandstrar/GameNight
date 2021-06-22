@@ -61,9 +61,7 @@ const GroupDetails = (props) => {
 
   const getCurrentUser = (userId, groupId) => {
     groupUserData.getCurrentGroupUser(userId, groupId).then((res) => {
-      if (res) {
-        setCurrentGroupUser(res);
-      }
+      setCurrentGroupUser(res);
     });
   };
 
@@ -228,12 +226,12 @@ const GroupDetails = (props) => {
     <AppBar className="tabs-bar" position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
           <Tab label="Group Members" {...a11yProps(0)} />
-          <Tab label="Game Nights" {...a11yProps(1)} />
+          <Tab label="Game Nights" {...a11yProps(1)} disabled={currentGroupUser?.isActive !== true} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
       <div className="group-card-container">
-      <div className="group-members"><div className="group-users"><h4>Group Admins</h4>
+      <div className="group-members"><div className="group-users"><h4>{adminUsers.length === 1 ? 'Group Admin' : 'Group Admins'}</h4>
         {showAdminUsers()}
         </div>
       <div className="group-users"><h4>Active Members</h4>

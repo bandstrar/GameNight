@@ -95,7 +95,7 @@ const GameForm = (props) => {
       <h5>Maximum Players</h5>
       <input type='number' defaultValue={formProps.game?.maxPlayers || 1}{...register('maxPlayers', { required: true, min: 1, max: 99 })} />
       {errors.maxPlayers && 'Outside player count range'}
-      <h5>Weight</h5>
+      <h5>Complexity</h5>
         <select defaultValue={formProps.game?.weight || 0} {...register('weight', { required: true })}>
           <option value="0">Light</option>
           <option value="1">Medium-Light</option>

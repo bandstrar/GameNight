@@ -62,7 +62,7 @@ const GameDetails = (props) => {
       <h1>{gameInfo.title}</h1>
       <h3>Player Count: {gameInfo.minPlayers}-{gameInfo.maxPlayers} Players</h3>
       <h3>Playing Time: {gameInfo.lengthInMinutes}</h3>
-      <h3>Game Weight: {getWeight(gameInfo.weight)}</h3>
+      <h3>Complexity: {getWeight(gameInfo.weight)}</h3>
       <h3>Genre: {gameInfo.genre}</h3>
       {gameInfo.userId === gameProps.dbUser.id
       && <><AppModal modalTitle='Update Game' buttonLabel={'Update Game'}>
