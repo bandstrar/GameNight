@@ -39,7 +39,7 @@ const GameNight = (props) => {
         gameData.getbyGroupId(res.groupId).then((response) => {
           const nightlessGames = [];
           response.forEach((game) => {
-            const included = (nightGame) => nightGame.gameId === game.id;
+            const included = (nightGame) => nightGame.game.title === game.title;
             if (!re.some(included)) {
               nightlessGames.push(game);
             }
@@ -51,7 +51,9 @@ const GameNight = (props) => {
         setGroupInfo(response);
       });
       groupUserData.getCurrentGroupUser(gameNightProps.dbUser.id, res.groupId).then((response) => {
-        setCurrentUser(response);
+        if (response) {
+          setCurrentUser(response);
+        }
       });
     });
   };
@@ -64,6 +66,11 @@ const GameNight = (props) => {
 
   const addGameToNight = (gameInfo) => {
     nightGameData.addGameToNight(gameInfo).then(() => {
+      if (filtered) {
+        const gameIndex = filteredGames.findIndex((game) => game === gameInfo);
+
+        filteredGames.splice(gameIndex, 1);
+      }
       getNightInfo(nightInfo.id);
     });
   };

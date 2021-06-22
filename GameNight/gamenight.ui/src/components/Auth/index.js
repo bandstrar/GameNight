@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import axios from 'axios';
 import { baseUrl } from '../../helpers/config.json';
@@ -27,8 +28,11 @@ const Auth = () => {
     });
   };
 
+  const history = useHistory();
+
   const logoutClickEvent = () => {
     firebase.auth().signOut();
+    history.push('/');
     window.location.reload();
   };
 

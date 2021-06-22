@@ -20,7 +20,7 @@ const GameFilterForm = (props) => {
     <h5>Maximum Players</h5>
     <input type='number'{...register('maxNumber', { min: 1, max: 99 })} />
     {errors.maxNumber && 'Outside range'}
-    <h5>Weight</h5>
+    <h5>Complexity</h5>
     <select {...register('weight')}>
         <option value="any">Any</option>
         <option value="0">Light</option>
