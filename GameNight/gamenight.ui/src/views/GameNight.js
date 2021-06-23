@@ -67,9 +67,11 @@ const GameNight = (props) => {
   const addGameToNight = (gameInfo) => {
     nightGameData.addGameToNight(gameInfo).then(() => {
       if (filtered) {
-        const gameIndex = filteredGames.findIndex((game) => game === gameInfo);
+        const gameIndex = filteredGames.findIndex((game) => game.id === gameInfo.gameId);
 
-        filteredGames.splice(gameIndex, 1);
+        const newFilter = filteredGames.splice(gameIndex, 1);
+
+        setFiltered(newFilter);
       }
       getNightInfo(nightInfo.id);
     });
