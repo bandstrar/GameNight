@@ -41,3 +41,7 @@ group members can view and participate in the group's Game Nights, and can leave
 When viewing a specific Game Night, an active group member can add games to the Game Night, and vote on which games they'd like to play on that night. The games that are
 available to be added are games from each active group member's collection, barring duplicate titles. The user can filter the game collection to find games based on certain
 criteria such as game length, complexity, and number of players.
+
+## Link
+
+[Link to the Application](https://bandstrar-game-night.netlify.app/)
